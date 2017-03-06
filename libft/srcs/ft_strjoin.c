@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_env.c                                      :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/02 16:30:53 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/06 17:44:43 by schevall         ###   ########.fr       */
+/*   Created: 2016/11/17 13:05:48 by schevall          #+#    #+#             */
+/*   Updated: 2017/03/06 18:20:01 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/mini_shell.h"
+#include "../includes/libft.h"
 
-void	cmd_env(char **env)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-//	ft_printf("begin cmd_env\n");
-	while (*env)
-	{
-		ft_printf("%s\n", *env);
-		env++;
-	}
+	char	*new;
+
+	if (!s1 || !s2)
+		return (NULL);
+	if (!(new = ft_strnew(ft_strlen(s1) + ft_strlen(s2))))
+		return (NULL);
+	ft_strcat(new, s1);
+	ft_strcat(new, s2);
+	return (new);
 }

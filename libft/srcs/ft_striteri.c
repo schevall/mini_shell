@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_env.c                                      :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/02 16:30:53 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/06 17:44:43 by schevall         ###   ########.fr       */
+/*   Created: 2016/11/17 13:05:38 by schevall          #+#    #+#             */
+/*   Updated: 2017/03/06 18:19:48 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/mini_shell.h"
+#include "../includes/libft.h"
 
-void	cmd_env(char **env)
+void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
-//	ft_printf("begin cmd_env\n");
-	while (*env)
+	unsigned int i;
+
+	i = 0;
+	if (s && f)
 	{
-		ft_printf("%s\n", *env);
-		env++;
+		while (s[i])
+		{
+			f(i, s + i);
+			i++;
+		}
 	}
 }

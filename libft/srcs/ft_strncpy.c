@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_env.c                                      :+:      :+:    :+:   */
+/*   ft_strncpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/02 16:30:53 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/06 17:44:43 by schevall         ###   ########.fr       */
+/*   Created: 2016/11/17 13:06:47 by schevall          #+#    #+#             */
+/*   Updated: 2017/03/06 18:22:36 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/mini_shell.h"
+#include "../includes/libft.h"
 
-void	cmd_env(char **env)
+char		*ft_strncpy(char *dest, const char *src, size_t n)
 {
-//	ft_printf("begin cmd_env\n");
-	while (*env)
+	size_t	i;
+
+	i = 0;
+	while (i < n && src[i])
 	{
-		ft_printf("%s\n", *env);
-		env++;
+		dest[i] = src[i];
+		i++;
 	}
+	while (i < n)
+	{
+		dest[i] = '\0';
+		i++;
+	}
+	return (dest);
 }

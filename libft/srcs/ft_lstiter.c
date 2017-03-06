@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_env.c                                      :+:      :+:    :+:   */
+/*   ft_lstiter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/02 16:30:53 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/06 17:44:43 by schevall         ###   ########.fr       */
+/*   Created: 2016/11/21 16:00:09 by schevall          #+#    #+#             */
+/*   Updated: 2017/03/06 18:12:53 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/mini_shell.h"
+#include "../includes/libft.h"
 
-void	cmd_env(char **env)
+void	ft_lstiter(t_list *lst, void (*f)(t_list *elem))
 {
-//	ft_printf("begin cmd_env\n");
-	while (*env)
+	if (lst)
 	{
-		ft_printf("%s\n", *env);
-		env++;
+		f(lst);
+		if (lst->next)
+			ft_lstiter(lst->next, f);
 	}
 }

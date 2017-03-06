@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_env.c                                      :+:      :+:    :+:   */
+/*   ft_strnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/02 16:30:53 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/06 17:44:43 by schevall         ###   ########.fr       */
+/*   Created: 2016/11/17 13:07:45 by schevall          #+#    #+#             */
+/*   Updated: 2017/03/06 18:23:07 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/mini_shell.h"
+#include "../includes/libft.h"
 
-void	cmd_env(char **env)
+char	*ft_strnew(size_t n)
 {
-//	ft_printf("begin cmd_env\n");
-	while (*env)
+	char *str;
+
+	if (!(str = malloc(sizeof(char) * (n + 1))))
+		return (NULL);
+	if (str)
 	{
-		ft_printf("%s\n", *env);
-		env++;
+		ft_bzero(str, n + 1);
+		return (str);
 	}
+	else
+		return (NULL);
 }

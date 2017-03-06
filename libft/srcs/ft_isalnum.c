@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_env.c                                      :+:      :+:    :+:   */
+/*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/02 16:30:53 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/06 17:44:43 by schevall         ###   ########.fr       */
+/*   Created: 2016/11/17 12:59:49 by schevall          #+#    #+#             */
+/*   Updated: 2017/03/06 18:10:35 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/mini_shell.h"
+#include "../includes/libft.h"
 
-void	cmd_env(char **env)
+int		ft_isalnum(int c)
 {
-//	ft_printf("begin cmd_env\n");
-	while (*env)
-	{
-		ft_printf("%s\n", *env);
-		env++;
-	}
+	if (ft_isalpha(c) || ft_isdigit(c))
+		return (1);
+	return (0);
 }

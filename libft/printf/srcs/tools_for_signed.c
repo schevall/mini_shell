@@ -1,23 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_env.c                                      :+:      :+:    :+:   */
+/*   tool_for_signed.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/02 16:30:53 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/06 17:44:43 by schevall         ###   ########.fr       */
+/*   Created: 2017/01/18 11:30:41 by schevall          #+#    #+#             */
+/*   Updated: 2017/03/06 18:29:48 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/mini_shell.h"
+#include "../includes/ft_printf.h"
 
-void	cmd_env(char **env)
+int		width_for_zero(int i, t_param *p)
 {
-//	ft_printf("begin cmd_env\n");
-	while (*env)
+	if (p->width > 0)
+		i = p->width;
+	return (i);
+}
+
+int		put_zeros_for_signed(char *str, int i, t_param *p, int tok)
+{
+	if (tok == 1)
 	{
-		ft_printf("%s\n", *env);
-		env++;
+		while (p->width--)
+			str[i++] = '0';
 	}
+	if (tok == 2)
+	{
+		while (p->prec--)
+			str[i++] = '0';
+	}
+	return (i);
 }

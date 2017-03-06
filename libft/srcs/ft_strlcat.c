@@ -1,23 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_env.c                                      :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/02 16:30:53 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/06 17:44:43 by schevall         ###   ########.fr       */
+/*   Created: 2016/11/18 11:15:28 by schevall          #+#    #+#             */
+/*   Updated: 2017/03/06 18:20:27 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/mini_shell.h"
+#include "../includes/libft.h"
 
-void	cmd_env(char **env)
+size_t		ft_strlcat(char *dst, char const *src, size_t size)
 {
-//	ft_printf("begin cmd_env\n");
-	while (*env)
-	{
-		ft_printf("%s\n", *env);
-		env++;
-	}
+	size_t	i;
+	size_t	j;
+	size_t	dlen;
+
+	j = 0;
+	i = 0;
+	while (i < size && dst[i])
+		i++;
+	if (i == size)
+		return (i + ft_strlen(src));
+	dlen = i;
+	while (i < (size - 1) && src[j])
+		dst[i++] = src[j++];
+	dst[i] = '\0';
+	return (ft_strlen(src) + dlen);
 }

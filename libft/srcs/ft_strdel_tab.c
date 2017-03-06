@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_env.c                                      :+:      :+:    :+:   */
+/*   ft_strdel_tab.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/02 16:30:53 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/06 17:44:43 by schevall         ###   ########.fr       */
+/*   Created: 2017/03/03 14:36:57 by schevall          #+#    #+#             */
+/*   Updated: 2017/03/06 18:18:56 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/mini_shell.h"
+#include "../includes/libft.h"
 
-void	cmd_env(char **env)
+void	ft_strdel_tab(char **tab)
 {
-//	ft_printf("begin cmd_env\n");
-	while (*env)
-	{
-		ft_printf("%s\n", *env);
-		env++;
-	}
+	int i;
+
+	i = 0;
+	while (tab[i])
+		ft_strdel(&tab[i]);
+	free(tab);
 }

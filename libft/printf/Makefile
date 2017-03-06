@@ -6,7 +6,7 @@
 #    By: schevall <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/10 10:34:27 by schevall          #+#    #+#              #
-#    Updated: 2017/02/14 15:26:43 by schevall         ###   ########.fr        #
+#    Updated: 2017/03/06 18:32:37 by schevall         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,9 +14,7 @@ NAME = libftprintf.a
 
 FLAG = -Wall -Wextra -Werror
 
-OPTION = -c
-
-SRC = ft_printf.c\
+SRCS_NAME = ft_printf.c\
 	  format_tree.c\
 	  format_for_signed.c\
 	  tools_for_signed.c\
@@ -34,10 +32,16 @@ SRC = ft_printf.c\
 	  get_param.c\
 	  is_params.c\
 
-OBJ_NAME = $(SRC:.c=.o)
+SRC_PATH = srcs/
+SRCS = $(addprefix $(SRC_PATH), $(SRCS_NAME))
 
-OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
+OBJ_NAME = $(SRCS_NAME:.c=.o)
 OBJ_PATH = obj/
+OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
+
+INC = -I includes/
+
+.PHONY: all, clean, fclean, re
 
 $(NAME): $(OBJ)
 	@ar rc $(NAME) $(OBJ)
@@ -45,9 +49,9 @@ $(NAME): $(OBJ)
 
 all: $(NAME)
 
-$(OBJ_PATH)%.o: %.c
+$(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	@mkdir -p obj
-	@gcc -c $(FLAG) -o $@ $<
+	@gcc -c $(FLAG) $(INC) $< -o $@
 
 clean:
 	@/bin/rm -rf $(OBJ_PATH)

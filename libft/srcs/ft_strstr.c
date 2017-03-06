@@ -1,23 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_env.c                                      :+:      :+:    :+:   */
+/*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/02 16:30:53 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/06 17:44:43 by schevall         ###   ########.fr       */
+/*   Created: 2016/11/17 13:08:30 by schevall          #+#    #+#             */
+/*   Updated: 2017/03/06 18:24:06 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/mini_shell.h"
+#include "../includes/libft.h"
 
-void	cmd_env(char **env)
+char	*ft_strstr(const char *s1, const char *s2)
 {
-//	ft_printf("begin cmd_env\n");
-	while (*env)
+	int i;
+	int j;
+
+	i = 0;
+	if ((s2[i] == '\0'))
+		return ((char *)s1);
+	while (s1[i])
 	{
-		ft_printf("%s\n", *env);
-		env++;
+		j = 0;
+		while (s1[i + j] == s2[j])
+		{
+			if (s2[j + 1] == '\0')
+				return ((char *)s1 + i);
+			j++;
+		}
+		i++;
 	}
+	return (NULL);
 }

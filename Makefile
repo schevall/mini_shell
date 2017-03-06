@@ -6,13 +6,12 @@
 #    By: schevall <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/06 16:45:19 by schevall          #+#    #+#              #
-#    Updated: 2017/03/06 17:05:46 by schevall         ###   ########.fr        #
+#    Updated: 2017/03/06 18:41:46 by schevall         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
-FLAG = -Wall -Wextra -Werror
-OPTION = -c
+FLAGS = -Wall -Wextra -Werror
 SRC_NAME = main.c\
 	  builtin_echo.c\
 	  builtin_env.c\
@@ -21,18 +20,18 @@ SRC_NAME = main.c\
 SRC_PATH = srcs/
 SRCS = $(addprefix $(SRC_PATH), $(SRCS_NAME))
 
-OBJ_NAME = $(SRC:.c=.o)
+OBJ_NAME = $(SRC_NAME:.c=.o)
 OBJ_PATH = obj/
 OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
 
-INC = -I./includes -I/libft/
-LIB = -L.libft/ -lft -L.libft/printf/ -lftprintf
+INC = -I includes/ -I libft/
+LIB = -L ./libft/ -lft -L ./libft/printf/ -lftprintf
 
 .PHONY: all, clean, fclean, re
 
 $(NAME): $(OBJ)
 	@make -C ./libft/
-	gcc -o $(NAME) $(LIB) $(FLAG) $(OBJ)
+	gcc $(FLAGS) $(INC) $(LIB) -o $(NAME) $(OBJ)
 
 all: $(NAME)
 

@@ -6,14 +6,13 @@
 #    By: schevall <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/10 10:27:19 by schevall          #+#    #+#              #
-#    Updated: 2017/03/06 16:43:02 by schevall         ###   ########.fr        #
+#    Updated: 2017/03/06 18:08:56 by schevall         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 FLAG = -Wall -Wextra -Werror
-OPTION = -c
-SRC = ft_atoi.c\
+SRCS_NAME = ft_atoi.c\
 	  ft_abs.c\
 	  ft_isalnum.c\
 	  ft_isalpha.c\
@@ -89,10 +88,16 @@ SRC = ft_atoi.c\
 	  ft_strndup_tab.c\
 	  ft_printf_tab.c\
 
-OBJ_NAME = $(SRC:.c=.o)
+SRC_PATH = srcs/
+SRCS = $(addprefix $(SRC_PATH), $(SRC_NAME))
 
-OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
+OBJ_NAME = $(SRCS_NAME:.c=.o)
 OBJ_PATH = obj/
+OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
+
+INC = -I ./includes/
+
+.PHONY: all, clean, fclean, re
 
 $(NAME): $(OBJ)
 	@ar rc $(NAME) $(OBJ)
@@ -101,13 +106,13 @@ $(NAME): $(OBJ)
 
 all: $(NAME)
 
-$(OBJ_PATH)%.o: %.c
+$(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	@mkdir -p obj
-	@gcc -c $(FLAG) -o $@ $<
+	@gcc -c $(FLAG) $(INC) $< -o $@
 
 clean:
 	@make clean -C ./printf/
-	@/bin/rm -rf $(OBJ_PATH)
+	@/bin/rm -rf $(OBJ)
 
 fclean: clean
 	@make fclean -C ./printf/

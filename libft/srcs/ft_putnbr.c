@@ -1,23 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_env.c                                      :+:      :+:    :+:   */
+/*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/02 16:30:53 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/06 17:44:43 by schevall         ###   ########.fr       */
+/*   Created: 2016/11/17 13:03:33 by schevall          #+#    #+#             */
+/*   Updated: 2017/03/06 18:16:36 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/mini_shell.h"
+#include "../includes/libft.h"
 
-void	cmd_env(char **env)
+void	ft_putnbr(int nb)
 {
-//	ft_printf("begin cmd_env\n");
-	while (*env)
+	if (nb == -2147483648)
+		ft_putstr("-2147483648");
+	else
 	{
-		ft_printf("%s\n", *env);
-		env++;
+		if (nb < 0)
+		{
+			ft_putchar('-');
+			nb = -nb;
+		}
+		if (nb >= 10)
+			ft_putnbr(nb / 10);
+		ft_putchar(nb % 10 + '0');
 	}
 }

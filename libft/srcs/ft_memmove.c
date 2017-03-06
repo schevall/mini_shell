@@ -1,23 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_env.c                                      :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/02 16:30:53 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/06 17:44:43 by schevall         ###   ########.fr       */
+/*   Created: 2016/11/17 13:02:39 by schevall          #+#    #+#             */
+/*   Updated: 2017/03/06 18:14:42 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/mini_shell.h"
+#include "../includes/libft.h"
 
-void	cmd_env(char **env)
+void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-//	ft_printf("begin cmd_env\n");
-	while (*env)
+	unsigned char *d;
+	unsigned char *s;
+
+	d = (unsigned char *)dest;
+	s = (unsigned char *)src;
+	if (s < d)
 	{
-		ft_printf("%s\n", *env);
-		env++;
+		d = d + n - 1;
+		s = s + n - 1;
+		while (n--)
+			*d-- = *s--;
 	}
+	else
+		ft_memcpy(d, s, n);
+	return (dest);
 }

@@ -1,23 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_env.c                                      :+:      :+:    :+:   */
+/*   ft_count_word.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/02 16:30:53 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/06 17:44:43 by schevall         ###   ########.fr       */
+/*   Created: 2017/03/03 15:14:23 by schevall          #+#    #+#             */
+/*   Updated: 2017/03/06 18:10:20 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/mini_shell.h"
+#include "../includes/libft.h"
 
-void	cmd_env(char **env)
+size_t		ft_count_word(char const *s, char c)
 {
-//	ft_printf("begin cmd_env\n");
-	while (*env)
+	size_t word;
+	int i;
+
+	word = 0;
+	i = 0;
+	while (s[i])
 	{
-		ft_printf("%s\n", *env);
-		env++;
+		while(s[i] == c && s[i])
+			i++;
+		if (s[i] != c && s[i])
+		{
+			word++;
+			while (s[i] != c && s[i])
+				i++;
+		}
 	}
+	return (word);
 }

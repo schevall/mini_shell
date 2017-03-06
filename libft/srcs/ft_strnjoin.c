@@ -1,23 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_env.c                                      :+:      :+:    :+:   */
+/*   ft_strnjoin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/02 16:30:53 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/06 17:44:43 by schevall         ###   ########.fr       */
+/*   Created: 2017/01/17 13:58:02 by schevall          #+#    #+#             */
+/*   Updated: 2017/03/06 18:23:20 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/mini_shell.h"
+#include "../includes/libft.h"
 
-void	cmd_env(char **env)
+char	*ft_strnjoin(char const *s1, int n1, char const *s2, int n2)
 {
-//	ft_printf("begin cmd_env\n");
-	while (*env)
+	char	*new;
+	int		i;
+	int		j;
+
+	j = 0;
+	i = 0;
+	if (!s1 || !s2)
+		return (NULL);
+	if (!(new = ft_strnew(n1 + n2 + 1)))
+		return (NULL);
+	while (i < n1)
 	{
-		ft_printf("%s\n", *env);
-		env++;
+		new[i] = s1[i];
+		i++;
 	}
+	while (i < n1 + n2)
+	{
+		new[i] = s2[j];
+		j++;
+		i++;
+	}
+	return (new);
 }

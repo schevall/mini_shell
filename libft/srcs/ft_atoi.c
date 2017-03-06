@@ -1,23 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_env.c                                      :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/02 16:30:53 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/06 17:44:43 by schevall         ###   ########.fr       */
+/*   Created: 2016/11/17 12:59:26 by schevall          #+#    #+#             */
+/*   Updated: 2017/03/06 18:09:57 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/mini_shell.h"
+#include "../includes/libft.h"
 
-void	cmd_env(char **env)
+int		ft_atoi(const char *str)
 {
-//	ft_printf("begin cmd_env\n");
-	while (*env)
+	int res;
+	int sign;
+
+	res = 0;
+	sign = 1;
+	while (ft_isspace(*str))
+		str++;
+	if (*str == '+' || *str == '-')
 	{
-		ft_printf("%s\n", *env);
-		env++;
+		if (*str == '-')
+			sign = -1;
+		str++;
 	}
+	while (*str && ft_isdigit(*str))
+		res = res * 10 + (*str++ - '0');
+	return (res * sign);
 }
