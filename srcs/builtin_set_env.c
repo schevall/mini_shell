@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 12:33:46 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/06 17:44:00 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/06 19:13:07 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	add_env(char *name, char *value, char ***env)
 	*env = new_tab;
 }
 
-void	cmd_setenv(char **cmds, char ***env)
+void	cmd_set_env(char **cmds, char ***env)
 {
 	int mode;
 	int found;

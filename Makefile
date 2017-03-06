@@ -6,7 +6,7 @@
 #    By: schevall <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/06 16:45:19 by schevall          #+#    #+#              #
-#    Updated: 2017/03/06 18:41:46 by schevall         ###   ########.fr        #
+#    Updated: 2017/03/06 19:11:09 by schevall         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ SRC_NAME = main.c\
 	  builtin_echo.c\
 	  builtin_env.c\
 	  builtin_set_env.c\
+	  builtin_unset_env.c\
 
 SRC_PATH = srcs/
 SRCS = $(addprefix $(SRC_PATH), $(SRCS_NAME))

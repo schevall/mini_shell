@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:12:18 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/06 18:39:56 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/06 19:13:11 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 
 void	cmd_env(char **env);
 void	cmd_echo(char **cmds);
-void	cmd_setenv(char **cmds, char ***env);
+void	cmd_set_env(char **cmds, char ***env);
+void	cmd_unset_env(char **cmds, char ***env);
 
 #endif

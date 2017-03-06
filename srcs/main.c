@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 17:09:53 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/06 18:44:35 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/06 19:13:04 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ void	funct_tab(char **cmds, char ***env)
 	else if (!ft_strcmp(cmds[0], "echo"))
 		cmd_echo(cmds);
 	else if (!ft_strcmp(cmds[0], "setenv"))
-		cmd_setenv(cmds, env);
+		cmd_set_env(cmds, env);
+	else if (!ft_strcmp(cmds[0], "unsetenv"))
+		cmd_unset_env(cmds, env);
 	else if (!ft_strcmp(cmds[0], "\n"))
 		return ;
 	else
@@ -35,6 +37,8 @@ int		is_builtin(char *cmd)
 	else if (!ft_strcmp(cmd, "echo"))
 		return (1);
 	else if (!ft_strcmp(cmd, "setenv"))
+		return (1);
+	else if (!ft_strcmp(cmd, "unsetenv"))
 		return (1);
 	else if (!ft_strcmp(cmd, "\n"))
 		return (1);
