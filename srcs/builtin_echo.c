@@ -1,25 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_shell.h                                       :+:      :+:    :+:   */
+/*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/02 11:12:18 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/06 16:23:35 by schevall         ###   ########.fr       */
+/*   Created: 2017/03/06 12:15:54 by schevall          #+#    #+#             */
+/*   Updated: 2017/03/06 14:02:58 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINI_SHELL_H
-# define MINI_SHELL_H
+#include "../includes/mini_shell.h"
 
-# include "../libft/libft.h"
-# include <unistd.h>
-# include <stdio.h>
-# include <sys/wait.h>
+void	cmd_echo_print(char **cmds, int i)
+{
+	while (cmds[i])
+		{
+			ft_printf("%s", cmds[i]);
+			if (cmds[i + 1])
+				ft_printf(" ");
+			i++;
+		}
+}
 
-void	cmd_env(char **env);
-void	cmd_echo(char **cmds);
-void	cmd_setenv(char **cmds, char ***env);
+void	cmd_echo(char **cmds)
+{
+	int i;
 
-#endif
+	i = 1;
+	ft_printf("init cmd_echo\n");
+	if (!ft_strcmp(cmds[1], "-n"))
+	{
+		i++;
+		cmd_echo_print(cmds, i);
+	}
+	else
+	{
+		cmd_echo_print(cmds, i);
+		ft_printf("\n");
+	}
+}
+

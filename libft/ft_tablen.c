@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 14:29:53 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/03 14:36:37 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/06 16:34:59 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,7 @@ int		ft_tablen(const char **tab)
 	int line;
 
 	line = 0;
-	while (*tab)
-	{
+	while (tab[line])
 		line++;
-		tab++;
-	}
 	return (line);
 }

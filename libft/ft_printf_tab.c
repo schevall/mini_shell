@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_shell.h                                       :+:      :+:    :+:   */
+/*   ft_printf_tab.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/02 11:12:18 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/06 16:23:35 by schevall         ###   ########.fr       */
+/*   Created: 2017/03/06 16:40:02 by schevall          #+#    #+#             */
+/*   Updated: 2017/03/06 16:43:08 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINI_SHELL_H
-# define MINI_SHELL_H
+#include "libft.h"
 
-# include "../libft/libft.h"
-# include <unistd.h>
-# include <stdio.h>
-# include <sys/wait.h>
+void	ft_print_tab(char *name, char **tab)
+{
+	int i;
 
-void	cmd_env(char **env);
-void	cmd_echo(char **cmds);
-void	cmd_setenv(char **cmds, char ***env);
-
-#endif
+	ft_printf("\ninit print_tab, name = [%s]\n\n", name);
+	i = 0;
+	while (tab[i])
+	{
+		ft_printf("ligne n.[%d] = [%s]\n", i, tab[i]);
+		i++;
+	}
+	ft_printf("\nend printtab\n\n");
+}

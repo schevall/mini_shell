@@ -6,7 +6,7 @@
 #    By: schevall <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/10 10:27:19 by schevall          #+#    #+#              #
-#    Updated: 2017/03/03 16:41:27 by schevall         ###   ########.fr        #
+#    Updated: 2017/03/06 16:43:02 by schevall         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -86,6 +86,8 @@ SRC = ft_atoi.c\
 	  ft_strdel_tab.c\
 	  ft_count_word.c\
 	  ft_word_len.c\
+	  ft_strndup_tab.c\
+	  ft_printf_tab.c\
 
 OBJ_NAME = $(SRC:.c=.o)
 

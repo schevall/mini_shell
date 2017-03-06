@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 13:09:32 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/03 16:42:09 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/06 16:42:41 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ size_t				ft_strlen(const char *str);
 int					ft_tablen(const char **tab);
 char				*ft_strdup(const char *src);
 char				**ft_strdup_tab(const char **src);
+char				**ft_strndup_tab(const char **src, int len);
 char				*ft_strcpy(char *dest, const char *src);
 char				*ft_strncpy(char *dest, const char *src, size_t n);
 char				*ft_strcat(char *dest, const char *src);
@@ -101,6 +102,7 @@ size_t				ft_count_word(char const *s, char c);
 uintmax_t			ft_power(int nb, int power);
 void				*ft_memdup(const void *s, size_t n);
 int					get_next_line(const int fd, char **line);
+void				ft_printf_tab(char *name, char **tab);
 
 /*
 ** FONCTIONS DE LISTES

@@ -1,46 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strndup_tab.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/02 11:11:27 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/02 15:45:59 by schevall         ###   ########.fr       */
+/*   Created: 2017/03/06 13:51:15 by schevall          #+#    #+#             */
+/*   Updated: 2017/03/06 14:36:40 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mini_shell.h"
+#include "libft.h"
 
-const char *quisuis;
-
-int		main()
+char	**ft_strndup_tab(const char **src, int len)
 {
-	pid_t	father;
+	char	**cpy;
+	int		i;
 
-	quisuis = "Le pere";
-	father = fork();
-	if (father == 0)
+	cpy = (char**)ft_memalloc(sizeof(char*) * (len + 1));
+	i = 0;
+	while (src[i] && i < len)
 	{
-		father = fork();
-		if (father == 0)
-		{
-			wait(NULL);
-			quisuis = "Le petit fils";
-			printf("je suis %s\n", quisuis);
-		}
-		else
-		{
-			wait(NULL);
-			quisuis = "Le fils";
-			printf("je suis %s\n", quisuis);
-		}
+		cpy[i] = ft_strdup(src[i]);
+		i++;
 	}
-	else
-	{
-		wait(NULL);
-		printf("je suis %s\n", quisuis);
-	}
+	return (cpy);
 }
-
-
