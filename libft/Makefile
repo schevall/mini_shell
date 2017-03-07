@@ -6,7 +6,7 @@
 #    By: schevall <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/10 10:27:19 by schevall          #+#    #+#              #
-#    Updated: 2017/03/06 18:08:56 by schevall         ###   ########.fr        #
+#    Updated: 2017/03/07 14:41:32 by schevall         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,7 @@ SRCS_NAME = ft_atoi.c\
 	  ft_strcpy.c\
 	  ft_striter.c\
 	  ft_strdup.c\
+	  ft_strndup.c\
 	  ft_strequ.c\
 	  ft_striteri.c\
 	  ft_strjoin.c\

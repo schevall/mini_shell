@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 13:09:32 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/06 18:39:12 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/07 14:41:09 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int					ft_memcmp(const void *s1, const void *s2, size_t n);
 size_t				ft_strlen(const char *str);
 int					ft_tablen(const char **tab);
 char				*ft_strdup(const char *src);
+char				*ft_strndup(const char *src, size_t n);
 char				**ft_strdup_tab(const char **src);
 char				**ft_strndup_tab(const char **src, int len);
 char				*ft_strcpy(char *dest, const char *src);

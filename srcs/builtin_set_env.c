@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 12:33:46 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/06 19:13:07 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/07 15:36:06 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	parse_setenv(char **cmds, int *mode)
 	return (1);
 }
 
-void	make_setenv(char *name, char *value, char **var)
+static void	make_setenv(char *name, char *value, char **var)
 {
 	char *new;
 	char *tmp;
@@ -39,7 +39,7 @@ void	make_setenv(char *name, char *value, char **var)
 	ft_strdel(&tmp);
 }
 
-void	add_env(char *name, char *value, char ***env)
+static void	add_env(char *name, char *value, char ***env)
 {
 	char *new_var;
 	char **new_tab;
