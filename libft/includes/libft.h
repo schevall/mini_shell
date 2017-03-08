@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 13:09:32 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/07 14:41:09 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/08 17:25:29 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ uintmax_t			ft_power(int nb, int power);
 void				*ft_memdup(const void *s, size_t n);
 int					get_next_line(const int fd, char **line);
 int					ft_printf(const char *format, ...);
-void				ft_printf_tab(char *name, char **tab);
+void				ft_print_tab(char *name, char **tab);
 
 /*
 ** FONCTIONS DE LISTES

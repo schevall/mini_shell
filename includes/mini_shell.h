@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:12:18 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/08 15:18:59 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/08 18:32:08 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef void (*sighandler_t)(int);
 typedef struct stat t_stat;
 typedef struct dirent t_dir;
 
-void	cmd_env(char **env);
+void	cmd_env(char ***env);
 void	cmd_echo(char **cmds);
 void	cmd_set_env(char **cmds, char ***env);
 void	cmd_unset_env(char **cmds, char ***env);

@@ -6,17 +6,20 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 16:30:53 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/08 13:43:41 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/08 18:32:07 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/mini_shell.h"
 
-void	cmd_env(char **env)
+void	cmd_env(char ***env)
 {
-	while (*env)
+	int i;
+
+	i = 0;
+	while ((*env)[i])
 	{
-		ft_printf("%s\n", *env);
-		env++;
+		ft_printf("%s\n", (*env)[i]);
+		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 12:33:46 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/08 15:18:51 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/08 18:32:00 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static int	parse_setenv(char **cmds, int *mode)
 {
+	ft_printf("init parse_setenv\n");
 	if (cmds[2] && ft_strcmp(cmds[2], "="))
 	{
 		ft_printf("usage: setenv [NAME] [=] [value] [overide_mode]\n");
@@ -23,6 +24,7 @@ static int	parse_setenv(char **cmds, int *mode)
 		*mode = 1;
 	else
 		*mode = 0;
+	ft_printf("mode = %d\n", *mode);
 	return (1);
 }
 
@@ -80,6 +82,6 @@ void		cmd_set_env(char **cmds, char ***env)
 		if (found && mode)
 			make_setenv(cmds[1], cmds[3], &(*env)[i]);
 		else if (!found)
-			add_env(cmds[1], cmds[3], env);
+			add_env(cmds[1], cmds[3], &(*env));
 	}
 }

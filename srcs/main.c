@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 17:09:53 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/08 15:18:48 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/08 18:32:04 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ void	funct_tab(char **cmds, char ***env)
 {
 	ft_printf("init funct_tab, cmds[0] = [%s]\n", cmds[0]);
 	if (!ft_strcmp(cmds[0], "env"))
-		cmd_env(*env);
+		cmd_env(env);
 	else if (!ft_strcmp(cmds[0], "echo"))
 		cmd_echo(cmds);
 	else if (!ft_strcmp(cmds[0], "setenv"))
 		cmd_set_env(cmds, env);
-	else if (!ft_strcmp(cmds[0], "unsetenv"))
+	else if (!ft_strcmp(cmds[0], "unsetenv") && cmds[1])
 		cmd_unset_env(cmds, env);
 	else if (!ft_strcmp(cmds[0], "cd"))
 		cmd_cd(cmds, env);
@@ -117,19 +117,19 @@ void	run_cmds(char **cmds, char ***env)
 	if (pid == 0)
 	{
 		signal(SIGINT, SIG_DFL);
-		if (is_builtin(cmds[0]))
-			funct_tab(cmds, env);
-		else if (can_access(cmds, 0) == 1)
-			execve(cmds[0], cmds, *env);
+		if (can_access(cmds, 0) == 1)
+		{
+			if (execve(cmds[0], cmds, *env) == -1)
+				exit(EXIT_FAILURE);
+		}
 		else if (is_pathed(&path, cmds[0], *env) == -1)
 		{
 			if (execve(path, cmds, *env) == -1)
-				ft_printf("exec error\n");
+				exit(EXIT_FAILURE);
 			ft_strdel(&path);
 		}
 		else
 			ft_printf("minishell: command not found: %s\n", cmds[0]);
-		exit(EXIT_SUCCESS);
 	}
 	else
 		wait(NULL);
@@ -158,7 +158,10 @@ int		main(int ac, char **av, const char **env_ini)
 	while (ft_printf("$> ") && get_next_line(0, &line))
 	{
 		parse(&cmds, line);
-		run_cmds(cmds, &env);
+		if (is_builtin(cmds[0]))
+			funct_tab(cmds, &env);
+		else
+			run_cmds(cmds, &env);
 		ft_strdel(&line);
 		ft_strdel_tab(cmds);
 	}
