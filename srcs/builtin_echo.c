@@ -5,40 +5,80 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/06 12:15:54 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/07 12:55:41 by schevall         ###   ########.fr       */
+/*   Created: 2017/03/08 13:47:18 by schevall          #+#    #+#             */
+/*   Updated: 2017/03/08 13:47:40 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/mini_shell.h"
 
-void	cmd_echo_print(char **cmds, int i)
+static size_t	parse_echo(char **cmds, int *start)
 {
+	int		i;
+	int		j;
+	size_t	len;
+
+	len = 0;
+	if (!ft_strcmp(cmds[*start], "-n"))
+		start++;
+	i = *start;
+	while (cmds[i])
+		len += ft_strlen(cmds[i++]);
+	i = *start;
 	while (cmds[i])
 	{
-		ft_printf("%s", cmds[i]);
-		if (cmds[i + 1])
-			ft_printf(" ");
+		j = 0;
+		while (cmds[i][j])
+		{
+			if (cmds[i][j] == 34 || cmds[i][j] == 39)
+				len--;
+			j++;
+		}
 		i++;
 	}
+	return (len);
 }
 
-void	cmd_echo(char **cmds)
+static char		*make_print_echo(char **cmds, size_t len, int start)
 {
-	int i;
+	char	*print;
+	int		j;
+	int		k;
 
-	i = 1;
-	ft_printf("init cmd_echo\n");
-	if (!ft_strcmp(cmds[1], "-n"))
+	k = 0;
+	print = ft_memalloc(len + 1);
+	while (cmds[start])
 	{
-		i++;
-		cmd_echo_print(cmds, i);
-		ft_printf("%%\n");
+		j = 0;
+		while (cmds[start][j])
+		{
+			if (cmds[start][j] != 34 && cmds[start][j] != 39)
+			{
+				print[k] = cmds[start][j];
+				k++;
+			}
+			j++;
+		}
+		if (cmds[start + 1])
+			print[k] = ' ';
+		k++;
+		start++;
 	}
-	else
-	{
-		cmd_echo_print(cmds, i);
-		ft_printf("\n");
-	}
+	return (print);
 }
 
+void			cmd_echo(char **cmds)
+{
+	int		start;
+	size_t	len;
+	char	*print;
+
+	start = 1;
+	ft_printf("init cmd_echo\n");
+	len = parse_echo(cmds, &start);
+	print = make_print_echo(cmds, len, start);
+	if (start == 2)
+		ft_printf("%s%%\n", print);
+	else
+		ft_printf("%s\n", print);
+}

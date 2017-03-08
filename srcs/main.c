@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 17:09:53 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/07 15:36:01 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/08 15:18:48 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,16 +94,15 @@ int		is_pathed(char **path, char *cmd, char **env)
 	ft_printf("potentials_path[0] = [%s]\n", potentials_path[0]);
 	while (potentials_path[i])
 	{
-//		ft_printf("boucle, potentials_path = [%s]\n", potentials_path[i]);
 		if (can_access(potentials_path, i) == 1)
+		{
+			*path = ft_strdup(potentials_path[i]);
 			break ;
+		}
 		i++;
 	}
 	if (potentials_path[i])
-	{
-		*path = ft_strdup(potentials_path[i]);
 		i = -1;
-	}
 	ft_strdel_tab(potentials_path);
 	ft_printf("i = %d rigth_path = [%s]\n", i, *path);
 	return (i);
@@ -117,12 +116,11 @@ void	run_cmds(char **cmds, char ***env)
 	pid = fork();
 	if (pid == 0)
 	{
+		signal(SIGINT, SIG_DFL);
 		if (is_builtin(cmds[0]))
 			funct_tab(cmds, env);
 		else if (can_access(cmds, 0) == 1)
-		{
 			execve(cmds[0], cmds, *env);
-		}
 		else if (is_pathed(&path, cmds[0], *env) == -1)
 		{
 			if (execve(path, cmds, *env) == -1)
@@ -130,7 +128,7 @@ void	run_cmds(char **cmds, char ***env)
 			ft_strdel(&path);
 		}
 		else
-			ft_printf("command not found: %s\n", cmds[0]);
+			ft_printf("minishell: command not found: %s\n", cmds[0]);
 		exit(EXIT_SUCCESS);
 	}
 	else
@@ -140,6 +138,7 @@ void	run_cmds(char **cmds, char ***env)
 void	parse(char ***cmds, char *line)
 {
 //	ft_printf("line = [%s]\n", line);
+//	ajouter au parsing de quoi spliter dans tout les cas = tab ou \n
 	*cmds = ft_strsplit(line, ' ');
 	if (!(*cmds[0]))
 		*(cmds[0]) = ft_strdup("\n");
@@ -155,6 +154,7 @@ int		main(int ac, char **av, const char **env_ini)
 	(void)ac;
 	(void)av;
 	env = ft_strdup_tab(env_ini);
+	signal(SIGINT, SIG_IGN);
 	while (ft_printf("$> ") && get_next_line(0, &line))
 	{
 		parse(&cmds, line);

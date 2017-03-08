@@ -6,18 +6,18 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 18:46:05 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/07 11:15:38 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/08 13:44:14 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/mini_shell.h"
 
-void	erase_var(char *name, char ***env, int len)
+static void	erase_var(char *name, char ***env, int len)
 {
-	int tab_len;
-	char **new_tab;
-	int j;
-	int i;
+	int		tab_len;
+	char	**new_tab;
+	int		j;
+	int		i;
 
 	j = 0;
 	i = 0;
@@ -36,10 +36,10 @@ void	erase_var(char *name, char ***env, int len)
 	*env = new_tab;
 }
 
-void	cmd_unset_env(char **cmds, char ***env)
+void		cmd_unset_env(char **cmds, char ***env)
 {
-	int len;
-	int i;
+	int		len;
+	int		i;
 
 	i = 0;
 	len = ft_strlen(cmds[1]);

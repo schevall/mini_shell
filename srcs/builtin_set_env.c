@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 12:33:46 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/07 15:36:06 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/08 15:18:51 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ static int	parse_setenv(char **cmds, int *mode)
 
 static void	make_setenv(char *name, char *value, char **var)
 {
-	char *new;
-	char *tmp;
+	char	*new;
+	char	*tmp;
 
 	ft_printf("\ninit make_setenv, name = [%s], value = [%s]\n\n", name, value);
 	new = ft_strjoin_free(name, 1, "=", 0);
@@ -41,9 +41,9 @@ static void	make_setenv(char *name, char *value, char **var)
 
 static void	add_env(char *name, char *value, char ***env)
 {
-	char *new_var;
-	char **new_tab;
-	int len;
+	char	*new_var;
+	char	**new_tab;
+	int		len;
 
 	ft_printf("\ninit add_env, name = [%s], value = [%s]\n\n", name, value);
 	new_var = ft_strjoin_free(name, 1, "=", 0);
@@ -54,12 +54,12 @@ static void	add_env(char *name, char *value, char ***env)
 	*env = new_tab;
 }
 
-void	cmd_set_env(char **cmds, char ***env)
+void		cmd_set_env(char **cmds, char ***env)
 {
-	int mode;
-	int found;
-	int i;
-	int len;
+	int		mode;
+	int		found;
+	int		i;
+	int		len;
 
 	ft_printf("init setenv\n");
 	i = 0;
