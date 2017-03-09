@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 12:33:46 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/08 18:32:00 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/09 18:13:20 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,17 @@ static int	parse_setenv(char **cmds, int *mode)
 		*mode = 1;
 	else
 		*mode = 0;
-	ft_printf("mode = %d\n", *mode);
 	return (1);
 }
 
 static void	make_setenv(char *name, char *value, char **var)
 {
 	char	*new;
-	char	*tmp;
 
 	ft_printf("\ninit make_setenv, name = [%s], value = [%s]\n\n", name, value);
 	new = ft_strjoin_free(name, 1, "=", 0);
 	new = ft_strjoin_free(new, 1, value, 1);
-	tmp = *var;
 	*var = new;
-	ft_strdel(&tmp);
 }
 
 static void	add_env(char *name, char *value, char ***env)
@@ -73,7 +69,6 @@ void		cmd_set_env(char **cmds, char ***env)
 		{
 			if (!ft_strncmp(cmds[1], (*env)[i], len))
 			{
-				ft_printf("NAME FOUND\n");
 				found = 1;
 				break ;
 			}

@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tablen.c                                        :+:      :+:    :+:   */
+/*   builtin_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/03 14:29:53 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/09 18:33:38 by schevall         ###   ########.fr       */
+/*   Created: 2017/03/09 18:33:59 by schevall          #+#    #+#             */
+/*   Updated: 2017/03/09 18:37:04 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "../includes/mini_shell.h"
 
-int		ft_tablen(const char **tab)
+void	cmd_exit(char **cmds, char ***env)
 {
-	int line;
-
-	line = 0;
-	while (tab[line])
-		line++;
-	return (line);
+	ft_strdel_tab(cmds);
+	ft_strdel_tab(*env);
+	ft_printf("exit succesfull\n");
+	exit(EXIT_SUCCESS);
 }

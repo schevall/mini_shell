@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 17:09:53 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/08 18:32:04 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/09 19:20:24 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,19 @@ void	funct_tab(char **cmds, char ***env)
 {
 	ft_printf("init funct_tab, cmds[0] = [%s]\n", cmds[0]);
 	if (!ft_strcmp(cmds[0], "env"))
-		cmd_env(env);
+		cmd_env(cmds, &(*env));
 	else if (!ft_strcmp(cmds[0], "echo"))
 		cmd_echo(cmds);
 	else if (!ft_strcmp(cmds[0], "setenv"))
-		cmd_set_env(cmds, env);
+		cmd_set_env(cmds, &(*env));
 	else if (!ft_strcmp(cmds[0], "unsetenv") && cmds[1])
-		cmd_unset_env(cmds, env);
+		cmd_unset_env(cmds, &(*env));
 	else if (!ft_strcmp(cmds[0], "cd"))
-		cmd_cd(cmds, env);
+		cmd_cd(cmds, &(*env));
+	else if (!ft_strcmp(cmds[0], "exit"))
+		cmd_exit(cmds, env);
+	else if (!ft_strcmp(cmds[0], "pwd"))
+		cmd_pwd(env);
 	else if (!ft_strcmp(cmds[0], "\n"))
 		return ;
 	else
@@ -44,13 +48,17 @@ int		is_builtin(char *cmd)
 		return (1);
 	else if (!ft_strcmp(cmd, "cd"))
 		return (1);
+	else if (!ft_strcmp(cmd, "exit"))
+		return (1);
+	else if (!ft_strcmp(cmd, "pwd"))
+		return (1);
 	else if (!ft_strcmp(cmd, "\n"))
 		return (1);
 	else
 		return (0);
 }
 
-char	**get_potentials_paths(char **env,char *cmd)
+char	**get_potentials_paths(char **env, char *cmd)
 {
 	char **paths;
 	int i;
@@ -118,18 +126,15 @@ void	run_cmds(char **cmds, char ***env)
 	{
 		signal(SIGINT, SIG_DFL);
 		if (can_access(cmds, 0) == 1)
-		{
-			if (execve(cmds[0], cmds, *env) == -1)
-				exit(EXIT_FAILURE);
-		}
+			execve(cmds[0], cmds, *env);
 		else if (is_pathed(&path, cmds[0], *env) == -1)
 		{
-			if (execve(path, cmds, *env) == -1)
-				exit(EXIT_FAILURE);
+			execve(path, cmds, *env);
 			ft_strdel(&path);
 		}
 		else
 			ft_printf("minishell: command not found: %s\n", cmds[0]);
+		exit(EXIT_SUCCESS);
 	}
 	else
 		wait(NULL);

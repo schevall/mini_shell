@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 18:46:05 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/08 18:32:10 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/09 12:43:43 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,8 @@ static void	erase_var(char *name, char ***env, int len)
 
 	j = 0;
 	i = 0;
-	ft_printf("\ninit erase_var, name = [%s]\n\n", name);
 	tab_len = ft_tablen((const char**)*env) - 1;
 	new_tab = (char**)ft_memalloc(sizeof(char*) * (tab_len + 1));
-	ft_printf("here1\n");
 	while ((*env)[j])
 	{
 		if (ft_strncmp((*env)[j], name, len))
@@ -35,7 +33,6 @@ static void	erase_var(char *name, char ***env, int len)
 		j++;
 	}
 	*env = new_tab;
-	ft_printf("here2\n");
 }
 
 void		cmd_unset_env(char **cmds, char ***env)
@@ -44,12 +41,17 @@ void		cmd_unset_env(char **cmds, char ***env)
 	int		i;
 
 	i = 0;
+	if (!cmds[1])
+		return ;
+	ft_printf("init cmd_unset_env, var = [%s]\n", cmds[1]);
 	len = ft_strlen(cmds[1]);
 	while ((*env)[i])
 	{
 		if (!ft_strncmp(cmds[1], (*env)[i], len))
-			erase_var(cmds[1], env, len);
+		{
+			erase_var(cmds[1], &(*env), len);
+			break ;
+		}
 		i++;
 	}
-	ft_print_tab("after erase var", *env);
 }

@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tablen.c                                        :+:      :+:    :+:   */
+/*   builtin_pwd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/03 14:29:53 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/09 18:33:38 by schevall         ###   ########.fr       */
+/*   Created: 2017/03/09 19:01:21 by schevall          #+#    #+#             */
+/*   Updated: 2017/03/09 19:05:30 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "../includes/mini_shell.h"
 
-int		ft_tablen(const char **tab)
+void	cmd_pwd(char ***env)
 {
-	int line;
+	int i;
 
-	line = 0;
-	while (tab[line])
-		line++;
-	return (line);
+	i = 0;
+	if (!env)
+		return ;
+	while ((*env)[i])
+	{
+		if (!ft_strncmp("PWD", (*env)[i], 3))
+		{
+			ft_printf("%s\n", (*env)[i] + 4);
+			break ;
+		}
+		i++;
+	}
 }
