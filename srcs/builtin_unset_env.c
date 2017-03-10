@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 18:46:05 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/09 12:43:43 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/10 18:37:15 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void		cmd_unset_env(char **cmds, char ***env)
 	i = 0;
 	if (!cmds[1])
 		return ;
-	ft_printf("init cmd_unset_env, var = [%s]\n", cmds[1]);
 	len = ft_strlen(cmds[1]);
 	while ((*env)[i])
 	{

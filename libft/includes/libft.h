@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 13:09:32 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/08 17:25:29 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/10 11:38:21 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int					ft_memcmp(const void *s1, const void *s2, size_t n);
 size_t				ft_strlen(const char *str);
 int					ft_tablen(const char **tab);
 char				*ft_strdup(const char *src);
+char				*ft_strdup_free(char *src);
 char				*ft_strndup(const char *src, size_t n);
 char				**ft_strdup_tab(const char **src);
 char				**ft_strndup_tab(const char **src, int len);
@@ -103,6 +104,7 @@ uintmax_t			ft_power(int nb, int power);
 void				*ft_memdup(const void *s, size_t n);
 int					get_next_line(const int fd, char **line);
 int					ft_printf(const char *format, ...);
+int					ft_printf_fd(int fd, const char *format, ...);
 void				ft_print_tab(char *name, char **tab);
 
 /*

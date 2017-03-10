@@ -6,7 +6,7 @@
 #    By: schevall <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/10 10:34:27 by schevall          #+#    #+#              #
-#    Updated: 2017/03/06 18:32:37 by schevall         ###   ########.fr        #
+#    Updated: 2017/03/10 11:32:45 by schevall         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ NAME = libftprintf.a
 FLAG = -Wall -Wextra -Werror
 
 SRCS_NAME = ft_printf.c\
+			ft_printf_fd.c\
 	  format_tree.c\
 	  format_for_signed.c\
 	  tools_for_signed.c\

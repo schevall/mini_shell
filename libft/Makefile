@@ -6,7 +6,7 @@
 #    By: schevall <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/10 10:27:19 by schevall          #+#    #+#              #
-#    Updated: 2017/03/07 14:41:32 by schevall         ###   ########.fr        #
+#    Updated: 2017/03/10 11:04:28 by schevall         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -88,6 +88,7 @@ SRCS_NAME = ft_atoi.c\
 	  ft_word_len.c\
 	  ft_strndup_tab.c\
 	  ft_printf_tab.c\
+	  ft_strdup_free.c\
 
 SRC_PATH = srcs/
 SRCS = $(addprefix $(SRC_PATH), $(SRC_NAME))

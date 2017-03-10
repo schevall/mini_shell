@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 16:30:53 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/09 19:05:51 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/10 18:37:14 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,12 @@ char	*ft_get_env(char *name, char ***env)
 
 	i = 0;
 	j = 0;
-	ft_printf("init ft_get_env\n");
+	ft_printf("init ft_get_env, name = [%s]\n", name);
+	if (!name)
+		return (NULL);
 	while ((*env)[i])
 	{
-		if (!ft_strncmp(name, (*env)[i], 4))
+		if (!ft_strncmp(name, (*env)[i], ft_strlen(name)))
 		{
 			while ((*env)[i][j] != '=')
 				j++;
@@ -31,6 +33,7 @@ char	*ft_get_env(char *name, char ***env)
 		}
 		i++;
 	}
+	printf("in ft_get_env, about to ret NULL\n");
 	return (NULL);
 }
 

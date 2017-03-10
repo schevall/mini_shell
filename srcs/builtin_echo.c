@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/08 13:47:18 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/09 19:20:17 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/10 18:37:19 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ static size_t	parse_echo(char **cmds, int *start)
 	if (!ft_strcmp(cmds[*start], "-n"))
 		(*start)++;
 	i = *start;
-	ft_printf("i = %d\n", i);
 	while (cmds[i])
 		len += ft_strlen(cmds[i++]);
 	i = *start;
@@ -75,7 +74,6 @@ void			cmd_echo(char **cmds)
 	char	*print;
 
 	start = 1;
-	ft_printf("init cmd_echo\n");
 	len = parse_echo(cmds, &start);
 	print = make_print_echo(cmds, len, start);
 	if (start == 2)

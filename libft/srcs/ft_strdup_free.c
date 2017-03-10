@@ -1,26 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_pwd.c                                      :+:      :+:    :+:   */
+/*   ft_strdup_free.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/09 19:01:21 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/10 18:37:24 by schevall         ###   ########.fr       */
+/*   Created: 2017/03/10 11:03:24 by schevall          #+#    #+#             */
+/*   Updated: 2017/03/10 11:07:52 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/mini_shell.h"
+#include "../includes/libft.h"
 
-void	cmd_pwd(char ***env)
+char		*ft_strdup_free(char *src)
 {
-	char *path;
+	size_t	len;
+	char	*dest;
+	int i;
 
-	if (!(path = getcwd(NULL, 0)))
-		minishell_errors(PATH_TROUBLE, path, "pwd");
-	else
+	len = ft_strlen(src);
+	if (!(dest = (char*)ft_memalloc(sizeof(char) * (len + 1))))
+		return (NULL);
+	i = 0;
+	while (src[i])
 	{
-		ft_printf("%s\n", path);
-		ft_strdel(&path);
+		dest[i] = src[i];
+		i++;
 	}
+	ft_strdel(&src);
+	return (dest);
 }

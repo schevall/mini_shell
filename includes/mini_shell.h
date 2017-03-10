@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:12:18 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/09 19:05:02 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/10 18:37:26 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,19 @@ int		cmd_cd(char **cmds, char ***env);
 void	cmd_exit(char **cmds, char ***env);
 void	cmd_pwd(char ***env);
 char	*ft_get_env(char *name, char ***env);
+char	*get_prompt(char **prompt, char ***env);
+int		minishell_errors(int error, char *value, char *ps);
+
+enum
+{
+	CMD_NOT_FOUND,
+	PERM_DENIED,
+	NOT_DIR,
+	NOT_FOUND,
+	IS_DIR,
+	PATH_TROUBLE,
+	PATH_TOO_LONG,
+	NAME_TOO_LONG,
+};
 
 #endif

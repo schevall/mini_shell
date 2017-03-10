@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/14 16:32:39 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/06 18:35:56 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/10 11:37:31 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct		s_param
 }					t_param;
 
 int					ft_printf(const char *format, ...);
+int					ft_printf_fd(int fd, const char *format, ...);
 void				get_params(const char **format, va_list ap,
 															t_param *params);
 void				init_params(t_param *params);
