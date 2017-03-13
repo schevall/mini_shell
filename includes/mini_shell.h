@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:12:18 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/13 14:35:20 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/13 15:14:27 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@
 # include <signal.h>
 # include <limits.h>
 
-typedef void (*sighandler_t)(int);
-typedef struct stat t_stat;
-typedef struct dirent t_dir;
+typedef void	(sighandler_t)(int);
+typedef struct stat	t_stat;
+typedef struct dirent	t_dir;
 
 void	*cmd_env(char **cmds, char ***env);
 void	cmd_echo(char **cmds, char ***env);

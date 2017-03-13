@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/10 11:03:24 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/10 11:07:52 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/13 15:03:27 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char		*ft_strdup_free(char *src)
 {
 	size_t	len;
 	char	*dest;
-	int i;
+	int		i;
 
 	len = ft_strlen(src);
 	if (!(dest = (char*)ft_memalloc(sizeof(char) * (len + 1))))
