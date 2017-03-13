@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 13:09:32 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/10 11:38:21 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/13 13:26:08 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ char				*ft_strnjoin(char const *s1, int n1, char const *s2,
 char				*ft_strjoin_free(char *s1, int i, char *s2, int j);
 char				*ft_strtrim(char const *s);
 char				**ft_strsplit(char const *s, char c);
+char				**ft_strsplit_whitespace(char const *s);
 char				*ft_itoa(int n);
 void				ft_putchar(char c);
 void				ft_putstr(char const *str);
@@ -99,7 +100,9 @@ int					ft_isspace(int c);
 int					ft_islower(int c);
 int					ft_isupper(int c);
 size_t				ft_word_len(const char *s, size_t i, char c);
+size_t				ft_word_len_whitespace(const char *s, size_t i);
 size_t				ft_count_word(char const *s, char c);
+size_t				ft_count_word_whitespace(char const *s);
 uintmax_t			ft_power(int nb, int power);
 void				*ft_memdup(const void *s, size_t n);
 int					get_next_line(const int fd, char **line);

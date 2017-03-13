@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/10 11:33:35 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/10 18:37:17 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/13 14:51:41 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	error_getcwd(char *value)
 	ft_printf_fd(2, "No such file or directory\n");
 }
 
-int		minishell_errors(int error, char *value, char *ps)
+int			minishell_errors(int error, char *value, char *ps)
 {
 	if (error == CMD_NOT_FOUND)
 		ft_printf_fd(2, "%s: %s: command not found\n", ps, value);
@@ -35,5 +35,7 @@ int		minishell_errors(int error, char *value, char *ps)
 		error_getcwd(value);
 	else if (error == PATH_TOO_LONG || error == NAME_TOO_LONG)
 		ft_printf_fd(2, "%s: %s: file name too long\n", ps, value);
+	else if (error == MALLOC)
+		ft_printf_fd(2, "A malloc error has occured\n");
 	return (1);
 }

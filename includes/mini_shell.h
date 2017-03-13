@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:12:18 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/10 18:37:26 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/13 14:35:20 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,20 @@ typedef struct stat t_stat;
 typedef struct dirent t_dir;
 
 void	*cmd_env(char **cmds, char ***env);
-void	cmd_echo(char **cmds);
+void	cmd_echo(char **cmds, char ***env);
 void	cmd_set_env(char **cmds, char ***env);
 void	cmd_unset_env(char **cmds, char ***env);
 int		cmd_cd(char **cmds, char ***env);
 void	cmd_exit(char **cmds, char ***env);
 void	cmd_pwd(char ***env);
+int		ft_is_env(char *name, char ***env);
 char	*ft_get_env(char *name, char ***env);
 char	*get_prompt(char **prompt, char ***env);
 int		minishell_errors(int error, char *value, char *ps);
+int		can_access(char **potentials_path, int i);
+int		is_pathed(char **path, char *cmd, char **env);
+int		is_path(char *path);
+int		check_path_errors(char *path);
 
 enum
 {
@@ -48,6 +53,7 @@ enum
 	PATH_TROUBLE,
 	PATH_TOO_LONG,
 	NAME_TOO_LONG,
+	MALLOC
 };
 
 #endif

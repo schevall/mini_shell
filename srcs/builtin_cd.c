@@ -6,15 +6,15 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/07 12:56:00 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/10 18:37:06 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/13 14:53:58 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/mini_shell.h"
 
-void	get_backward_path(char **path)
+static void	get_backward_path(char **path)
 {
-	int i;
+	int		i;
 
 	i = ft_strlen(*path);
 	while ((*path)[i] != '/')
@@ -25,9 +25,9 @@ void	get_backward_path(char **path)
 	}
 }
 
-void	set_env_for_cd(char *name, char *value, char ***env)
+static void	set_env_for_cd(char *name, char *value, char ***env)
 {
-	char **cmds_setenv;
+	char	**cmds_setenv;
 
 	cmds_setenv = ft_memalloc(sizeof(char*) * 6);
 	cmds_setenv[0] = ft_strdup("setenv");
@@ -36,67 +36,36 @@ void	set_env_for_cd(char *name, char *value, char ***env)
 	if (value)
 		cmds_setenv[3] = ft_strdup(value);
 	cmds_setenv[4] = ft_strdup("1");
-	ft_printf("after set_env_for_cd\n");
 	cmd_set_env(cmds_setenv, &(*env));
 	ft_strdel_tab(cmds_setenv);
-	ft_printf("after set_env_for_cd, del\n");
 }
 
-int		check_cd_error(char **cmds)
+static void	get_new_path(char *cmd, char **path, char ***env)
 {
-	int i;
-	t_stat buf;
-
-	i = 0;
-	if (access(cmds[1], F_OK) != -1)
-	{
-		if (stat(cmds[1], &buf) != -1)
-		{
-			if (S_ISDIR(buf.st_mode))
-			{
-				if (access(cmds[1], X_OK) != -1)
-					i = 1;
-				else
-					ft_printf("cd: permission denied: %s\n", cmds[1]);
-			}
-			else
-				ft_printf("cd: not a directory: %s\n", cmds[1]);
-		}
-		else
-			ft_printf("lstat trouble\n"); //a virer
-	}
-	else
-		ft_printf("cd: such file or directory: %s\n", cmds[1]);
-	return (i);
-}
-
-void	get_new_path(char *cmd, char **path, char ***env)
-{
-	char *tmp;
-
 	if (*cmd == '/')
-		*path = ft_strdup(cmd);
+	{
+		if (!(*path = ft_strdup(cmd)))
+			minishell_errors(MALLOC, NULL, NULL);
+	}
 	else if (!ft_strcmp(cmd, ".."))
 	{
 		get_backward_path(path);
-		tmp = *path;
-		*path = ft_strdup(*path);
-		ft_strdel(&tmp);
+		if (!(*path = ft_strdup_free(*path)))
+			minishell_errors(MALLOC, NULL, NULL);
 	}
 	else
 	{
-		tmp = *path;
-		*path = ft_strdup(*path);
-		ft_strdel(&tmp);
+		*path = ft_strdup_free(*path);
 		*path = ft_strjoin_free(*path, 1, "/", 0);
 		*path = ft_strjoin_free(*path, 1, cmd, 1);
 	}
 }
 
-int		cmd_cd_cases(char *type, char ***env)
+static int	cmd_cd_cases(char *type, char ***env, char *path)
 {
 	if (!ft_strcmp("go back", type))
 	{
+		ft_printf("%s\n", ft_get_env("OLDPWD", env));
 		set_env_for_cd("PWD", ft_get_env("OLDPWD", env), &(*env));
 		chdir(ft_get_env("OLDPWD", env));
 		return (1);
@@ -107,36 +76,43 @@ int		cmd_cd_cases(char *type, char ***env)
 		chdir(ft_get_env("HOME", env));
 		return (1);
 	}
-	else if (!ft_strcmp("path trouble", type))
+	else if (!ft_strcmp("tilde_path", type))
 	{
-		minishell_errors(PATH_TROUBLE, "pwd", NULL);
-		return (0);
+		path = ft_strjoin_free(ft_get_env("HOME", env), 0, path + 1, 0);
+		if (check_path_errors(path))
+			return (0);
+		set_env_for_cd("PWD", path, &*env);
+		chdir(path);
+		ft_strdel(&path);
+		return (1);
 	}
 	return (0);
 }
 
-int		cmd_cd(char **cmds, char ***env)
+int			cmd_cd(char **cmds, char ***env)
 {
-	char *path;
+	char	*path;
 
 	if (cmds[1] && !ft_strcmp(cmds[1], "-"))
-		return (cmd_cd_cases("go back", &(*env)));
+		return (cmd_cd_cases("go back", &(*env), NULL));
 	if (!(path = getcwd(NULL, 0)))
-		return (cmd_cd_cases("path trouble", &(*env)));
+		return (0);
 	set_env_for_cd("OLDPWD", path, &(*env));
+	if (cmds[1] && *cmds[1] == '~' && ft_strcmp(cmds[1], "~"))
+		return (cmd_cd_cases("tilde_path", &(*env), cmds[1]));
 	if (!cmds[1] || !ft_strcmp(cmds[1], "~"))
-		return (cmd_cd_cases("go home", &(*env)));
-	else if (check_cd_error(cmds))
+		return (cmd_cd_cases("go home", &(*env), NULL));
+	else if (!check_path_errors(cmds[1]))
 	{
 		get_new_path(cmds[1], &path, env);
 		if (path)
+		{
 			chdir(path);
-		ft_strdel(&path);
+			ft_strdel(&path);
+		}
 		path = getcwd(NULL, 0);
 		set_env_for_cd("PWD", path, &(*env));
 		return (1);
 	}
-
-
 	return (0);
 }

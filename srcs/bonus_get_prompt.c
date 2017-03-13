@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/10 12:09:34 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/10 18:37:22 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/13 14:50:16 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 char	*get_prompt(char **prompt, char ***env)
 {
-	char *path;
-	char *new_prompt;
-	int len;
-	int start;
+	char	*path;
+	char	*new_prompt;
+	int		len;
+	int		start;
 
 	if (*prompt)
 		ft_strdel(prompt);

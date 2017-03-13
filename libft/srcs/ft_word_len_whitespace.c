@@ -1,20 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_exit.c                                     :+:      :+:    :+:   */
+/*   ft_word_len_whitespace.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/09 18:33:59 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/13 14:51:16 by schevall         ###   ########.fr       */
+/*   Created: 2017/03/13 13:24:10 by schevall          #+#    #+#             */
+/*   Updated: 2017/03/13 13:27:18 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/mini_shell.h"
+#include "../includes/libft.h"
 
-void	cmd_exit(char **cmds, char ***env)
+size_t		ft_word_len_whitespace(const char *s, size_t i)
 {
-	ft_strdel_tab(cmds);
-	ft_strdel_tab(*env);
-	exit(EXIT_SUCCESS);
+	size_t len;
+
+	len = 0;
+	while (s[i] && !ft_isspace(s[i]))
+	{
+		len++;
+		i++;
+	}
+	return (len);
 }

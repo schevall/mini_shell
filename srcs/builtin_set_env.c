@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 12:33:46 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/10 18:37:08 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/13 14:51:27 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ static void	make_setenv(char *name, char *value, char **var)
 {
 	char	*new;
 
-	ft_printf("in make_setenv\n");
 	new = ft_strjoin_free(name, 1, "=", 0);
 	if (value)
 		new = ft_strjoin_free(new, 1, value, 1);

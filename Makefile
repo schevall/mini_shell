@@ -6,13 +6,15 @@
 #    By: schevall <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/06 16:45:19 by schevall          #+#    #+#              #
-#    Updated: 2017/03/10 12:50:02 by schevall         ###   ########.fr        #
+#    Updated: 2017/03/13 14:34:00 by schevall         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 FLAGS = -Wall -Wextra -Werror
 SRC_NAME = main.c\
+		   path_manager.c\
+		   path_maker.c\
 	  builtin_echo.c\
 	  builtin_env.c\
 	  builtin_set_env.c\

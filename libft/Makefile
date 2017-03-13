@@ -6,7 +6,7 @@
 #    By: schevall <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/01/10 10:27:19 by schevall          #+#    #+#              #
-#    Updated: 2017/03/10 11:04:28 by schevall         ###   ########.fr        #
+#    Updated: 2017/03/13 13:27:10 by schevall         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,6 +75,7 @@ SRCS_NAME = ft_atoi.c\
 	  ft_toupper.c\
 	  ft_strtrim.c\
 	  ft_strsplit.c\
+	  ft_strsplit_whitespace.c\
 	  get_next_line.c\
 	  ft_power.c\
 	  ft_nbrlen.c\
@@ -85,7 +86,9 @@ SRCS_NAME = ft_atoi.c\
 	  ft_tablen.c\
 	  ft_strdel_tab.c\
 	  ft_count_word.c\
+	  ft_count_word_whitespace.c\
 	  ft_word_len.c\
+	  ft_word_len_whitespace.c\
 	  ft_strndup_tab.c\
 	  ft_printf_tab.c\
 	  ft_strdup_free.c\
