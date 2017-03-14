@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 18:46:05 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/13 14:51:32 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/14 18:50:09 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static void	erase_var(char *name, char ***env, int len)
 		}
 		j++;
 	}
+	ft_strdel_tab(*env);
 	*env = new_tab;
 }
 

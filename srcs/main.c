@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 17:09:53 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/13 14:51:37 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/14 18:49:57 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,17 @@ static void	run_cmds(char **cmds, char ***env)
 		wait(NULL);
 }
 
-static void	parse(char ***cmds, char *line)
+static char	**parse(char **cmds, char *line)
 {
-	*cmds = ft_strsplit_whitespace(line);
-	if (!(*cmds[0]))
-		*(cmds[0]) = ft_strdup("\n");
+	if (!*line)
+	{
+		cmds = (char**)ft_memalloc(sizeof(char*) * 2);
+		cmds[0] = (char*)ft_memalloc(2);
+		cmds[0][0]= '\n';
+		return (cmds);
+	}
+	else
+		return (ft_strsplit_whitespace(line));
 }
 
 int			main(int ac, char **av, const char **env_ini)
@@ -100,16 +106,16 @@ int			main(int ac, char **av, const char **env_ini)
 	prompt = get_prompt(&prompt, &env);
 	while (ft_printf("%s", prompt) && get_next_line(0, &line) > 0)
 	{
-		parse(&cmds, line);
+		cmds = parse(cmds, line);
 		if (is_builtin(cmds[0]))
 			funct_tab(cmds, &env);
 		else if (!is_path(cmds[0]))
 			run_cmds(cmds, &env);
 		ft_strdel(&line);
 		ft_strdel_tab(cmds);
+		ft_strdel(&prompt);
 		prompt = get_prompt(&prompt, &env);
 	}
-	ft_strdel(&prompt);
 	ft_strdel_tab(env);
 	return (0);
 }

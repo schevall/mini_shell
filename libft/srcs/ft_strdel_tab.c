@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 14:36:57 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/06 18:18:56 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/14 18:20:49 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,10 @@ void	ft_strdel_tab(char **tab)
 
 	i = 0;
 	while (tab[i])
-		ft_strdel(&tab[i]);
+	{
+		if (tab[i])
+			ft_strdel(&tab[i]);
+		i++;
+	}
 	free(tab);
 }
