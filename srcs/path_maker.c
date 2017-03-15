@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 14:29:31 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/13 14:51:47 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/15 19:18:16 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static char	**get_potentials_paths(char **env, char *cmd)
 	i = 0;
 	if (!ft_is_env("PATH", &env))
 		return (NULL);
-	paths = ft_strsplit(ft_get_env("PATH", &env), ':');
+	paths = ft_strsplit((*ft_get_env("PATH", env)), ':');
 	while (paths[i])
 	{
 		paths[i] = ft_strjoin_free(paths[i], 1, "/", 0);

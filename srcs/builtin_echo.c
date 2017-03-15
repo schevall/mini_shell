@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/08 13:47:18 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/14 18:50:14 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/15 19:18:09 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void			cmd_echo(char **cmds, char ***env)
 	len = parse_echo(cmds, &start);
 	print = make_print_echo(cmds, len, start);
 	if (*cmds[start] == '$' && ft_is_env(cmds[start] + 1, env))
-		ft_printf("%s\n", ft_get_env(cmds[start] + 1, env));
+		ft_printf("%s\n", *ft_get_env(cmds[start] + 1, *env));
 	else if (start == 2)
 		ft_printf("%s", print);
 	else

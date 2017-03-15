@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 12:33:46 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/14 18:49:58 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/15 19:18:04 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static int	parse_setenv(char **cmds)
 static void	make_setenv(char *name, char *value, char **var)
 {
 	char	*new;
+	char	*tmp;
 
 	if (!(new = ft_strjoin_free(name, 0, "=", 0)))
 		minishell_errors(MALLOC, NULL, NULL);
@@ -40,7 +41,9 @@ static void	make_setenv(char *name, char *value, char **var)
 		if (!(new = ft_strjoin_free(new, 1, value, 0)))
 			minishell_errors(MALLOC, NULL, NULL);
 	}
+	tmp = *var;
 	*var = new;
+	ft_strdel(&tmp);
 }
 
 static void	add_env(char *name, char *value, char ***env)

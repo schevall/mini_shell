@@ -6,20 +6,26 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 14:23:29 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/14 18:43:55 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/15 19:18:07 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/mini_shell.h"
 
-static int	check_path_errors_aux(int j, char *buf, char *path)
+static int	check_path_errors_aux(int j, char *sub_path, char *path)
 {
+	t_stat buf;
+
+	if (!(path = getcwd(NULL, 0)))
+		return (minishell_errors(PATH_TROUBLE, NULL, "chdir"));
 	if (j > NAME_MAX)
 		return (minishell_errors(NAME_TOO_LONG, path, "minishell"));
-	if (access(buf, F_OK) == -1)
-		return (minishell_errors(NOT_FOUND, buf, "minishell"));
-	if (access(buf, X_OK) == -1)
-		return (minishell_errors(PERM_DENIED, buf, "minishell"));
+	if (stat(sub_path, &buf) == -1)
+		return (minishell_errors(NOT_DIR, path, "minishell"));
+	if (access(sub_path, F_OK) == -1)
+		return (minishell_errors(NOT_FOUND, sub_path, "minishell"));
+	if (access(sub_path, X_OK) == -1)
+		return (minishell_errors(PERM_DENIED, sub_path, "minishell"));
 	return (0);
 }
 
@@ -29,30 +35,23 @@ int			check_path_errors(char *path)
 	int		i;
 	int		j;
 
-	i = 0;
-	buf = ft_memalloc(PATH_MAX);
+	i = -1;
 	if (ft_strlen(path) >= PATH_MAX)
-	{
-		ft_strdel(&buf);
 		return (minishell_errors(PATH_TOO_LONG, NULL, "minishell"));
-	}
-	while (path[i])
+	buf = ft_memalloc(PATH_MAX);
+	while (path[++i])
 	{
 		j = 0;
 		while (path[i] && path[i] != '/')
 		{
 			buf[i] = path[i];
-			j++;
 			i++;
+			j++;
 		}
 		if (path[i] == '/')
 			buf[i] = path[i];
 		if (check_path_errors_aux(j, buf, path))
-		{
-			ft_strdel(&buf);
-			return (1);
-		}
-		i++;
+			break ;
 	}
 	ft_strdel(&buf);
 	return (0);

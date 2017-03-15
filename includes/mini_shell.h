@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:12:18 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/14 18:50:04 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/15 19:18:14 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ int		cmd_cd(char **cmds, char ***env);
 void	cmd_exit(char **cmds, char ***env);
 void	cmd_pwd(char ***env);
 int		ft_is_env(char *name, char ***env);
-char	*ft_get_env(char *name, char ***env);
-char	*get_prompt(char **prompt, char ***env);
+char	**ft_get_env(char *name, char **env);
+void	get_prompt(char **prompt, char **env);
 int		minishell_errors(int error, char *value, char *ps);
 int		can_access(char **potentials_path, int i);
 int		is_pathed(char **path, char *cmd, char **env);

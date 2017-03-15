@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 17:09:53 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/14 18:49:57 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/15 19:18:05 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static char	**parse(char **cmds, char *line)
 	{
 		cmds = (char**)ft_memalloc(sizeof(char*) * 2);
 		cmds[0] = (char*)ft_memalloc(2);
-		cmds[0][0]= '\n';
+		cmds[0][0] = '\n';
 		return (cmds);
 	}
 	else
@@ -103,7 +103,7 @@ int			main(int ac, char **av, const char **env_ini)
 	(void)ac;
 	(void)av;
 	env = ft_strdup_tab(env_ini);
-	prompt = get_prompt(&prompt, &env);
+	get_prompt(&prompt, env);
 	while (ft_printf("%s", prompt) && get_next_line(0, &line) > 0)
 	{
 		cmds = parse(cmds, line);
@@ -113,8 +113,7 @@ int			main(int ac, char **av, const char **env_ini)
 			run_cmds(cmds, &env);
 		ft_strdel(&line);
 		ft_strdel_tab(cmds);
-		ft_strdel(&prompt);
-		prompt = get_prompt(&prompt, &env);
+		get_prompt(&prompt, env);
 	}
 	ft_strdel_tab(env);
 	return (0);

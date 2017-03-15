@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/17 13:09:32 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/13 13:26:08 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/15 16:48:56 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ uintmax_t			ft_power(int nb, int power);
 void				*ft_memdup(const void *s, size_t n);
 int					get_next_line(const int fd, char **line);
 int					ft_printf(const char *format, ...);
+int					ft_sprintf(char **buf, const char *format, ...);
 int					ft_printf_fd(int fd, const char *format, ...);
 void				ft_print_tab(char *name, char **tab);
 

@@ -6,15 +6,15 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/10 11:33:35 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/14 16:38:12 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/15 19:18:10 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/mini_shell.h"
 
-static void	error_getcwd(char *value)
+static void	error_getcwd(char *ps)
 {
-	ft_printf_fd(2, "%s: error retrieving current directory: ", value);
+	ft_printf_fd(2, "%s: error retrieving current directory: ", ps);
 	ft_printf_fd(2, "getcwd: cannot access parent directories: ");
 	ft_printf_fd(2, "No such file or directory\n");
 }
@@ -28,11 +28,11 @@ int			minishell_errors(int error, char *value, char *ps)
 	else if (error == NOT_DIR)
 		ft_printf_fd(2, "%s: %s: not a directory\n", ps, value);
 	else if (error == NOT_FOUND)
-		ft_printf_fd(2, "%s: %s: not such file or  directory\n", ps, value);
+		ft_printf_fd(2, "%s: %s: not such file or directory\n", ps, value);
 	else if (error == IS_DIR)
 		ft_printf_fd(2, "%s: %s: is a directory\n", ps, value);
 	else if (error == PATH_TROUBLE)
-		error_getcwd(value);
+		error_getcwd(ps);
 	else if (error == PATH_TOO_LONG || error == NAME_TOO_LONG)
 		ft_printf_fd(2, "%s: %s: file name too long\n", ps, value);
 	else if (error == MALLOC)
