@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 14:29:31 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/15 19:18:16 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/16 18:54:21 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int			can_access(char **potentials_path, int i)
 			return (1);
 		else
 		{
-			minishell_errors(PERM_DENIED, potentials_path[i], "minishell");
+			ms_errors(PERM_DENIED, potentials_path[i], "minishell");
 			return (1);
 		}
 	}

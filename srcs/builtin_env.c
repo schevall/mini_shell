@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 16:30:53 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/15 19:18:12 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/16 18:54:22 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	**ft_get_env(char *name, char **env)
 		return (NULL);
 	while (*env)
 	{
-		if (!ft_strncmp(name, *env, ft_strlen(name)))
+		if (!(ft_strncmp(name, *env, ft_strlen(name))))
 			return (env);
 		env++;
 	}

@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 17:09:53 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/15 19:18:05 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/16 18:54:14 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 static void	funct_tab(char **cmds, char ***env)
 {
-	if (!ft_strcmp(cmds[0], "env"))
+	if (!ft_strcmp(cmds[0], "\n"))
+		return ;
+	else if (!ft_strcmp(cmds[0], "env"))
 		cmd_env(cmds, &(*env));
 	else if (!ft_strcmp(cmds[0], "echo"))
 		cmd_echo(cmds, env);
@@ -28,15 +30,15 @@ static void	funct_tab(char **cmds, char ***env)
 		cmd_exit(cmds, env);
 	else if (!ft_strcmp(cmds[0], "pwd"))
 		cmd_pwd(env);
-	else if (!ft_strcmp(cmds[0], "\n"))
-		return ;
 	else
 		return ;
 }
 
 static int	is_builtin(char *cmd)
 {
-	if (!ft_strcmp(cmd, "env"))
+	if (!ft_strcmp(cmd, "\n"))
+		return (1);
+	else if  (!ft_strcmp(cmd, "env"))
 		return (1);
 	else if (!ft_strcmp(cmd, "echo"))
 		return (1);
@@ -49,8 +51,6 @@ static int	is_builtin(char *cmd)
 	else if (!ft_strcmp(cmd, "exit"))
 		return (1);
 	else if (!ft_strcmp(cmd, "pwd"))
-		return (1);
-	else if (!ft_strcmp(cmd, "\n"))
 		return (1);
 	else
 		return (0);
@@ -73,7 +73,7 @@ static void	run_cmds(char **cmds, char ***env)
 			ft_strdel(&path);
 		}
 		else
-			minishell_errors(CMD_NOT_FOUND, cmds[0], "minishell");
+			ms_errors(CMD_NOT_FOUND, cmds[0], "minishell");
 		exit(EXIT_SUCCESS);
 	}
 	else

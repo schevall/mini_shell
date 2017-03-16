@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 12:33:46 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/15 19:18:04 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/16 18:54:12 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,16 @@ static int	parse_setenv(char **cmds)
 static void	make_setenv(char *name, char *value, char **var)
 {
 	char	*new;
-	char	*tmp;
 
 	if (!(new = ft_strjoin_free(name, 0, "=", 0)))
-		minishell_errors(MALLOC, NULL, NULL);
+		ms_errors(MALLOC, NULL, NULL);
 	if (value)
 	{
 		if (!(new = ft_strjoin_free(new, 1, value, 0)))
-			minishell_errors(MALLOC, NULL, NULL);
+			ms_errors(MALLOC, NULL, NULL);
 	}
-	tmp = *var;
+	free(*var);
 	*var = new;
-	ft_strdel(&tmp);
 }
 
 static void	add_env(char *name, char *value, char ***env)
@@ -54,16 +52,16 @@ static void	add_env(char *name, char *value, char ***env)
 	int		len;
 
 	if (!(new_var = ft_strjoin_free(name, 0, "=", 0)))
-		minishell_errors(MALLOC, NULL, NULL);
+		ms_errors(MALLOC, NULL, NULL);
 	if (value)
 	{
 		if (!(new_var = ft_strjoin_free(new_var, 1, value, 0)))
-			minishell_errors(MALLOC, NULL, NULL);
+			ms_errors(MALLOC, NULL, NULL);
 	}
 	len = ft_tablen((const char**)*env);
 	tmp = *env;
 	if (!(new_tab = ft_strndup_tab((const char**)*env, len + 2)))
-		minishell_errors(MALLOC, NULL, NULL);
+		ms_errors(MALLOC, NULL, NULL);
 	ft_strdel_tab(tmp);
 	new_tab[len] = new_var;
 	*env = new_tab;
@@ -90,8 +88,27 @@ void		cmd_set_env(char **cmds, char ***env)
 			i++;
 		}
 		if (found)
-			make_setenv(cmds[1], cmds[2], &(*env)[i]);
+			make_setenv(cmds[1], cmds[2], *env + i);
 		else if (!found)
 			add_env(cmds[1], cmds[2], &(*env));
 	}
+}
+
+void	set_env_for_cd(char *name, char *value, char ***env)
+{
+	char	**cmds_setenv;
+
+	if (!(cmds_setenv = (char**)ft_memalloc(sizeof(char*) * 4)))
+		ms_errors(MALLOC, NULL, NULL);
+	if (!(cmds_setenv[0] = ft_strdup("setenv")))
+		ms_errors(MALLOC, NULL, NULL);
+	if (!(cmds_setenv[1] = ft_strdup(name)))
+		ms_errors(MALLOC, NULL, NULL);
+	if (value)
+	{
+		if (!(cmds_setenv[2] = ft_strdup(value)))
+			ms_errors(MALLOC, NULL, NULL);
+	}
+	cmd_set_env(cmds_setenv, &(*env));
+	ft_strdel_tab(cmds_setenv);
 }

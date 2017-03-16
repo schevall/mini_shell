@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 14:23:29 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/15 19:18:07 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/16 18:54:19 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,14 @@ static int	check_path_errors_aux(int j, char *sub_path, char *path)
 {
 	t_stat buf;
 
-	if (!(path = getcwd(NULL, 0)))
-		return (minishell_errors(PATH_TROUBLE, NULL, "chdir"));
 	if (j > NAME_MAX)
-		return (minishell_errors(NAME_TOO_LONG, path, "minishell"));
-	if (stat(sub_path, &buf) == -1)
-		return (minishell_errors(NOT_DIR, path, "minishell"));
+		return (ms_errors(NAME_TOO_LONG, path, "minishell"));
 	if (access(sub_path, F_OK) == -1)
-		return (minishell_errors(NOT_FOUND, sub_path, "minishell"));
+		return (ms_errors(NO_F, sub_path, "minishell"));
+	if (stat(sub_path, &buf) == -1)
+		return (ms_errors(NOT_DIR, path, "minishell"));
 	if (access(sub_path, X_OK) == -1)
-		return (minishell_errors(PERM_DENIED, sub_path, "minishell"));
+		return (ms_errors(P_DN, sub_path, "minishell"));
 	return (0);
 }
 
@@ -37,7 +35,7 @@ int			check_path_errors(char *path)
 
 	i = -1;
 	if (ft_strlen(path) >= PATH_MAX)
-		return (minishell_errors(PATH_TOO_LONG, NULL, "minishell"));
+		return (ms_errors(PATH_TOO_LONG, NULL, "minishell"));
 	buf = ft_memalloc(PATH_MAX);
 	while (path[++i])
 	{
@@ -80,6 +78,6 @@ int			is_path(char *path)
 	if (stat(path, &buf) == -1)
 		return (check_path_errors(path));
 	else if (S_ISDIR(buf.st_mode))
-		return (minishell_errors(IS_DIR, path, "minishell"));
+		return (ms_errors(IS_DIR, path, "minishell"));
 	return (0);
 }
