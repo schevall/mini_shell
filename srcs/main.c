@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 17:09:53 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/16 18:54:14 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/17 17:35:31 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static int	is_builtin(char *cmd)
 		return (0);
 }
 
-static void	run_cmds(char **cmds, char ***env)
+void	run_cmds(char **cmds, char ***env, char *ps)
 {
 	pid_t	pid;
 	char	*path;
@@ -64,16 +64,21 @@ static void	run_cmds(char **cmds, char ***env)
 	pid = fork();
 	if (pid == 0)
 	{
+		ft_printf("in son\n");
 		signal(SIGINT, SIG_DFL);
 		if (can_access(cmds, 0) == 1)
+		{
+			ft_printf("in son3\n");
 			execve(cmds[0], cmds, *env);
+		}
 		else if (is_pathed(&path, cmds[0], *env) == -1)
 		{
+			ft_printf("in son2\n");
 			execve(path, cmds, *env);
 			ft_strdel(&path);
 		}
 		else
-			ms_errors(CMD_NOT_FOUND, cmds[0], "minishell");
+			ms_errors(CMD_NOT_FOUND, cmds[0], ps);
 		exit(EXIT_SUCCESS);
 	}
 	else
@@ -90,7 +95,10 @@ static char	**parse(char **cmds, char *line)
 		return (cmds);
 	}
 	else
+	{
+		ft_supress_quote(&line);
 		return (ft_strsplit_whitespace(line));
+	}
 }
 
 int			main(int ac, char **av, const char **env_ini)
@@ -110,7 +118,7 @@ int			main(int ac, char **av, const char **env_ini)
 		if (is_builtin(cmds[0]))
 			funct_tab(cmds, &env);
 		else if (!is_path(cmds[0]))
-			run_cmds(cmds, &env);
+			run_cmds(cmds, &env, "minishell");
 		ft_strdel(&line);
 		ft_strdel_tab(cmds);
 		get_prompt(&prompt, env);

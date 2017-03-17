@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/08 13:47:18 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/16 18:54:38 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/17 14:11:22 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static char		*make_print_echo(char **cmds, size_t len, int start)
 	int		k;
 
 	k = 0;
-	print = ft_memalloc(len + 1);
+	print = (char*)ft_memalloc(len + 1);
 	while (cmds[start])
 	{
 		j = 0;
@@ -67,19 +67,43 @@ static char		*make_print_echo(char **cmds, size_t len, int start)
 	return (print);
 }
 
+static void			echo_env_var(char *print, char ***env)
+{
+	char	**var;
+	int		i;
+	int		len;
+
+	i = 0;
+	var = ft_strsplit(print, '$');
+	while (var[i])
+	{
+		if (ft_is_env(var[i], env))
+		{
+			len = ft_strlen(var[i]) + 1;
+			ft_printf("%s", *ft_get_env(var[i], *env) + len);
+		}
+		else
+			ft_printf("$%s", var[i]);
+		i++;
+	}
+	ft_printf("\n");
+}
+
 void			cmd_echo(char **cmds, char ***env)
 {
 	int		start;
 	size_t	len;
 	char	*print;
+	char	*var;
 
 	start = 1;
 	len = parse_echo(cmds, &start);
 	print = make_print_echo(cmds, len, start);
-	if (*cmds[start] == '$' && ft_is_env(cmds[start] + 1, env))
-		ft_printf("%s\n", *ft_get_env(cmds[start] + 1, *env));
+	if (ft_strchr(print, '$'))
+		echo_env_var(print, env);
 	else if (start == 2)
 		ft_printf("%s", print);
 	else
 		ft_printf("%s\n", print);
+	ft_strdel(&print);
 }

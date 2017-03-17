@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 11:12:18 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/16 18:54:30 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/17 16:49:50 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,15 @@
 typedef struct stat	t_stat;
 typedef struct dirent	t_dir;
 
-void	*cmd_env(char **cmds, char ***env);
+void	run_cmds(char **cmds, char ***env, char *ps);
+void	cmd_env(char **cmds, char ***env);
 void	cmd_echo(char **cmds, char ***env);
 void	cmd_set_env(char **cmds, char ***env);
 void	cmd_unset_env(char **cmds, char ***env);
 int		cmd_cd(char **cmds, char ***env);
 void	cmd_exit(char **cmds, char ***env);
 void	cmd_pwd(char ***env);
-void	set_env_for_cd(char *name, char *value, char ***env);
+void	format_cmd_for_setenv(char *name, char *value, char ***env);
 int		ft_is_env(char *name, char ***env);
 char	**ft_get_env(char *name, char **env);
 void	get_prompt(char **prompt, char **env);

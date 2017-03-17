@@ -1,27 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdel_tab.c                                    :+:      :+:    :+:   */
+/*   ft_supress_quote.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/03 14:36:57 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/17 13:17:29 by schevall         ###   ########.fr       */
+/*   Created: 2017/03/17 12:43:13 by schevall          #+#    #+#             */
+/*   Updated: 2017/03/17 16:51:02 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
-void	ft_strdel_tab(char **tab)
+void	ft_supress_quote(char **line)
 {
-	int i;
+	int		len;
+	int		i;
+	int		j;
+	char	*new;
 
 	i = 0;
-	while (tab[i])
+	len = ft_strlen(*line);
+	j = 0;
+	new = (char*)ft_memalloc(len + 1);
+	while ((*line)[i])
 	{
-		if (tab[i])
-			ft_strdel(&tab[i]);
+		if ((*line)[i] != 39 && (*line)[i] != 34)
+		{
+			new[j] = (*line)[i];
+			j++;
+		}
 		i++;
 	}
-	free(tab);
+	ft_bzero(*line, ft_strlen(*line));
+	*line = ft_strcpy(*line, new);
+	ft_strdel(&new);
 }

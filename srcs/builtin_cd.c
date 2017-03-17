@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/07 12:56:00 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/16 18:54:08 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/17 16:49:48 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int			change_path(char *path, char ***env)
 	chdir(path);
 	ft_strdel(&path);
 	path = getcwd(NULL, 0);
-	set_env_for_cd("PWD", path, &(*env));
+	format_cmd_for_setenv("PWD", path, &(*env));
 	ft_strdel(&path);
 	return (0);
 }
@@ -67,7 +67,7 @@ static int	cmd_cd_cases(char *type, char ***env, char *cur_path)
 		if (!(new_path = ft_strdup(target)))
 			return (ms_errors(MALLOC, NULL, NULL));
 		ft_printf("%s\n", new_path);
-		set_env_for_cd("OLDPWD", cur_path, &(*env));
+		format_cmd_for_setenv("OLDPWD", cur_path, &(*env));
 	}
 	else if (!ft_strcmp("go home", type))
 	{
@@ -104,9 +104,9 @@ int			cd_error(char **cmds, char ***env)
 	}
 	else if (!ft_strcmp(cmds[1], ".."))
 	{
-		set_env_for_cd("OLDPWD", path, &(*env));
+		format_cmd_for_setenv("OLDPWD", path, &(*env));
 		ft_get_backward(&path);
-		set_env_for_cd("PWD", path, &(*env));
+		format_cmd_for_setenv("PWD", path, &(*env));
 		change_path(path, env);
 	}
 	else
@@ -122,7 +122,7 @@ int			cmd_cd(char **cmds, char ***env)
 		return (cd_error(cmds, env));
 	if (cmds[1] && !ft_strcmp(cmds[1], "-"))
 		return (cmd_cd_cases("go back", &(*env), path));
-	set_env_for_cd("OLDPWD", path, &(*env));
+	format_cmd_for_setenv("OLDPWD", path, &(*env));
 	if (!cmds[1] || !ft_strcmp(cmds[1], "~"))
 		return (cmd_cd_cases("go home", &(*env), path));
 	get_new_path(cmds[1], &path, env);

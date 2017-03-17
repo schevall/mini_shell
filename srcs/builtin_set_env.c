@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 12:33:46 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/16 18:54:12 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/17 16:49:41 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,10 @@ static int	parse_setenv(char **cmds)
 	return (1);
 }
 
-static void	make_setenv(char *name, char *value, char **var)
+static void	make_setenv(char *name, char *value, char **env)
 {
 	char	*new;
+	char	*tmp;
 
 	if (!(new = ft_strjoin_free(name, 0, "=", 0)))
 		ms_errors(MALLOC, NULL, NULL);
@@ -40,8 +41,9 @@ static void	make_setenv(char *name, char *value, char **var)
 		if (!(new = ft_strjoin_free(new, 1, value, 0)))
 			ms_errors(MALLOC, NULL, NULL);
 	}
-	free(*var);
-	*var = new;
+	tmp = *env;
+	*env = new;
+	ft_strdel(&tmp);
 }
 
 static void	add_env(char *name, char *value, char ***env)
@@ -69,32 +71,32 @@ static void	add_env(char *name, char *value, char ***env)
 
 void		cmd_set_env(char **cmds, char ***env)
 {
-	int		found;
 	int		i;
 	int		len;
+	char	*buf;
 
-	i = 0;
-	found = 0;
+	i = -1;
 	if (parse_setenv(cmds))
 	{
-		len = ft_strlen(cmds[1]);
-		while ((*env)[i])
+		len = ft_strlen(cmds[1]) + 1;
+		buf = ft_strjoin(cmds[1], "=");
+		while ((*env)[++i])
 		{
-			if (!ft_strncmp(cmds[1], (*env)[i], len))
+			if (!ft_strncmp(buf, (*env)[i], len))
 			{
-				found = 1;
+				len = -1;
 				break ;
 			}
-			i++;
 		}
-		if (found)
+		ft_strdel(&buf);
+		if (len == -1)
 			make_setenv(cmds[1], cmds[2], *env + i);
-		else if (!found)
-			add_env(cmds[1], cmds[2], &(*env));
+		else if (len != -1)
+			add_env(cmds[1], cmds[2], env);
 	}
 }
 
-void	set_env_for_cd(char *name, char *value, char ***env)
+void	format_cmd_for_setenv(char *name, char *value, char ***env)
 {
 	char	**cmds_setenv;
 

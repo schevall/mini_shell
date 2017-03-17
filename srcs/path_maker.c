@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 14:29:31 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/16 18:54:21 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/17 17:35:35 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int			can_access(char **potentials_path, int i)
 			return (1);
 		else
 		{
-			ms_errors(PERM_DENIED, potentials_path[i], "minishell");
+			ms_errors(P_DN, potentials_path[i], "minishell");
 			return (1);
 		}
 	}
@@ -62,6 +62,7 @@ int			is_pathed(char **path, char *cmd, char **env)
 	{
 		if (can_access(potentials_path, i) == 1)
 		{
+			ft_printf("path found for %s\n", potentials_path[i]);
 			*path = ft_strdup(potentials_path[i]);
 			break ;
 		}

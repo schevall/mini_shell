@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 16:30:53 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/16 18:54:22 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/17 17:35:32 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,24 @@ int		ft_is_env(char *name, char ***env)
 {
 	int len;
 	int i;
+	char *buf;
 
 	i = 0;
-	len = ft_strlen(name);
+	if (!name)
+		return (0);
+	buf = ft_strjoin(name, "=");
+	len = ft_strlen(buf);
 	while ((*env)[i])
 	{
-		if (!ft_strncmp(name, (*env)[i], len))
-			return (1);
+		if (!ft_strncmp(buf, (*env)[i], len))
+		{
+			i = -1;
+			break;
+		}
 		i++;
 	}
-	return (0);
+	ft_strdel(&buf);
+	return (i = -1 ? 1 : 0);
 }
 
 char	**ft_get_env(char *name, char **env)
@@ -41,24 +49,54 @@ char	**ft_get_env(char *name, char **env)
 	return (NULL);
 }
 
-void	*cmd_env(char **cmds, char ***env)
+void	set_env_tmp(char *cmds, char ***env)
+{
+	char	*name;
+	char	*value;
+	int		i;
+
+	i = 0;
+	while (cmds[i] != '=')
+		i++;
+	name = ft_strsub(cmds, 0, i);
+	value = ft_strsub(cmds, i + 1, ft_strlen(cmds));
+	format_cmd_for_setenv(name, value, env);
+	ft_strdel(&name);
+	ft_strdel(&value);
+}
+
+void	cmd_env_aux(char **cmds, char ***tmp_env, int *exec, int *i)
+{
+	ft_printf("cmds[%d] = %s\n", *i, cmds[*i]);
+	if (!ft_strcmp(cmds[*i], "-i"))
+	{
+		ft_strdel_tab(*tmp_env);
+		*tmp_env = (char**)ft_memalloc(sizeof(char*));
+	}
+	else if (ft_strchr(cmds[*i], '='))
+		set_env_tmp(cmds[*i], tmp_env);
+	else if (!is_path(cmds[*i]) && ft_strcmp(cmds[*i], "env"))
+	{
+		*exec = 1;
+		run_cmds(cmds + *i, tmp_env, "env");
+	}
+}
+
+void	cmd_env(char **cmds, char ***env)
 {
 	int		i;
 	char	**tmp_env;
+	int		exec;
 
+	exec = 0;
 	i = 0;
 	if (cmds[1] && !ft_strcmp(cmds[1], "-i"))
-	{
-		tmp_env = (char**)ft_memalloc(1);
-		tmp_env[0] = NULL;
-		return (tmp_env);
-	}
-	if (!*env)
-		return (NULL);
-	while ((*env)[i])
-	{
-		ft_printf("%s\n", (*env)[i]);
-		i++;
-	}
-	return (NULL);
+		tmp_env = (char**)ft_memalloc(sizeof(char*));
+	else
+		tmp_env = ft_strdup_tab((const char**)*env);
+	while (cmds[++i])
+		cmd_env_aux(cmds, &tmp_env, &exec, &i);
+	if (!exec)
+		ft_print_tab(tmp_env);
+	ft_strdel_tab(tmp_env);
 }
