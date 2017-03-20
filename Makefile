@@ -6,7 +6,7 @@
 #    By: schevall <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/06 16:45:19 by schevall          #+#    #+#              #
-#    Updated: 2017/03/13 14:34:00 by schevall         ###   ########.fr        #
+#    Updated: 2017/03/20 15:48:59 by schevall         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRC_NAME = main.c\
 	  builtin_exit.c\
 	  builtin_pwd.c\
 	  bonus_get_prompt.c\
+	  bonus_sigign_prompt.c\
 	  minishell_errors.c\
 
 SRC_PATH = srcs/

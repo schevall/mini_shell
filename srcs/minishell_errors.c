@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/10 11:33:35 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/16 18:54:25 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/20 17:05:30 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,28 @@ int			ms_errors(int error, char *value, char *ps)
 		ft_printf_fd(2, "A malloc error has occured\n");
 	else if (error == OPWD_NOT)
 		ft_printf_fd(2, "%s: Oldpwd not set\n", ps);
+	return (1);
+}
+
+int			cd_error(char **cmds, char ***env)
+{
+	char *path;
+
+	path = ft_strdup(*ft_get_env("PWD", *env) + 4);
+	if (cmds[1] && !ft_strcmp(cmds[1], "-"))
+	{
+		ms_errors(PATH_TROUBLE, path, "chdir");
+		cmd_cd_cases("go back", env, path);
+		return (0);
+	}
+	else if (!ft_strcmp(cmds[1], ".."))
+	{
+		format_cmd_for_setenv("OLDPWD", path, &(*env));
+		get_backward(&path);
+		format_cmd_for_setenv("PWD", path, &(*env));
+		change_path(path, env);
+	}
+	else
+		check_path_errors(path);
 	return (1);
 }

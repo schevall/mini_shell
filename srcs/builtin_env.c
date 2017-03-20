@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 16:30:53 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/17 17:35:32 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/20 11:07:36 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int		ft_is_env(char *name, char ***env)
 {
-	int len;
-	int i;
-	char *buf;
+	int		len;
+	int		i;
+	char	*buf;
 
 	i = 0;
 	if (!name)
@@ -28,7 +28,7 @@ int		ft_is_env(char *name, char ***env)
 		if (!ft_strncmp(buf, (*env)[i], len))
 		{
 			i = -1;
-			break;
+			break ;
 		}
 		i++;
 	}

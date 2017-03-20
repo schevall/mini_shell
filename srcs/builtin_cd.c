@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/07 12:56:00 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/17 16:49:48 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/20 17:08:13 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	get_new_path(char *cmd, char **cur_path, char ***env)
 		ft_strdel(cur_path);
 		*cur_path = ft_strdup(cmd);
 	}
-	if (*cmd == '~')
+	else if (*cmd == '~')
 	{
 		tmp = *ft_get_env("HOME", *env) + 5;
 		tmp2 = cmd + 2;
@@ -50,7 +50,7 @@ int			change_path(char *path, char ***env)
 	return (0);
 }
 
-static int	cmd_cd_cases(char *type, char ***env, char *cur_path)
+int			cmd_cd_cases(char *type, char ***env, char *cur_path)
 {
 	char *new_path;
 	char *target;
@@ -61,7 +61,7 @@ static int	cmd_cd_cases(char *type, char ***env, char *cur_path)
 			return (ms_errors(OPWD_NOT, NULL, "cd"));
 		target = *ft_get_env("OLDPWD", *env) + 7;
 		if (access(target, F_OK) == -1)
-			return (ms_errors(NO_F,(*ft_get_env("OLDPWD", *env) + 7), "cd"));
+			return (ms_errors(NO_F, (*ft_get_env("OLDPWD", *env) + 7), "cd"));
 		if (access(target, X_OK) == -1)
 			return (ms_errors(P_DN, (*ft_get_env("OLDPWD", *env) + 7), "cd"));
 		if (!(new_path = ft_strdup(target)))
@@ -78,10 +78,10 @@ static int	cmd_cd_cases(char *type, char ***env, char *cur_path)
 	return (change_path(new_path, env));
 }
 
-void		ft_get_backward(char **path)
+void		get_backward(char **path)
 {
-	int i;
-	char *tmp;
+	int		i;
+	char	*tmp;
 
 	i = ft_strlen(*path);
 	while (i && (*path)[i] != '/')
@@ -89,29 +89,6 @@ void		ft_get_backward(char **path)
 	tmp = ft_strsub(*path, 0, i);
 	ft_strdel(path);
 	*path = tmp;
-}
-
-int			cd_error(char **cmds, char ***env)
-{
-	char *path;
-
-	path = ft_strdup(*ft_get_env("PWD", *env) + 4);
-	if (cmds[1] && !ft_strcmp(cmds[1], "-"))
-	{
-		ms_errors(PATH_TROUBLE, path, "chdir");
-		cmd_cd_cases("go back", env, path);
-		return (0);
-	}
-	else if (!ft_strcmp(cmds[1], ".."))
-	{
-		format_cmd_for_setenv("OLDPWD", path, &(*env));
-		ft_get_backward(&path);
-		format_cmd_for_setenv("PWD", path, &(*env));
-		change_path(path, env);
-	}
-	else
-		check_path_errors(path);
-	return (1);
 }
 
 int			cmd_cd(char **cmds, char ***env)

@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 12:33:46 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/17 16:49:41 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/20 11:07:38 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void		cmd_set_env(char **cmds, char ***env)
 	}
 }
 
-void	format_cmd_for_setenv(char *name, char *value, char ***env)
+void		format_cmd_for_setenv(char *name, char *value, char ***env)
 {
 	char	**cmds_setenv;
 

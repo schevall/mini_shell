@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/13 14:23:29 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/17 16:49:51 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/20 15:02:38 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ int			check_path_errors(char *path)
 	int		i;
 	int		j;
 
-	i = -1;
+	i = 0;
 	if (ft_strlen(path) >= PATH_MAX)
 		return (ms_errors(PATH_TOO_LONG, NULL, "minishell"));
 	buf = ft_memalloc(PATH_MAX);
-	while (path[++i])
+	while (path[i] && i < ft_strlen(path))
 	{
 		j = 0;
 		while (path[i] && path[i] != '/')
@@ -50,6 +50,7 @@ int			check_path_errors(char *path)
 			buf[i] = path[i];
 		if (check_path_errors_aux(j, buf, path))
 			break ;
+		i++;
 	}
 	ft_strdel(&buf);
 	return (0);

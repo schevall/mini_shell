@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/08 13:47:18 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/17 14:11:22 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/20 14:33:48 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static size_t	parse_echo(char **cmds, int *start)
 	i = *start;
 	while (cmds[i])
 		len += ft_strlen(cmds[i++]);
+	len += i - 2;
 	i = *start;
 	while (cmds[i])
 	{
@@ -67,7 +68,7 @@ static char		*make_print_echo(char **cmds, size_t len, int start)
 	return (print);
 }
 
-static void			echo_env_var(char *print, char ***env)
+static void		echo_env_var(char *print, char ***env)
 {
 	char	**var;
 	int		i;

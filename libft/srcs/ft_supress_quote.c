@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/17 12:43:13 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/17 16:51:02 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/20 15:17:51 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	ft_supress_quote(char **line)
 	int		j;
 	char	*new;
 
+	if (!ft_strchr(*line, 39) && !ft_strchr(*line, 34))
+		return ;
 	i = 0;
 	len = ft_strlen(*line);
 	j = 0;

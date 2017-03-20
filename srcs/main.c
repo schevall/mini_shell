@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 17:09:53 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/17 17:35:31 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/20 17:07:37 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	is_builtin(char *cmd)
 {
 	if (!ft_strcmp(cmd, "\n"))
 		return (1);
-	else if  (!ft_strcmp(cmd, "env"))
+	else if (!ft_strcmp(cmd, "env"))
 		return (1);
 	else if (!ft_strcmp(cmd, "echo"))
 		return (1);
@@ -56,7 +56,7 @@ static int	is_builtin(char *cmd)
 		return (0);
 }
 
-void	run_cmds(char **cmds, char ***env, char *ps)
+void		run_cmds(char **cmds, char ***env, char *ps)
 {
 	pid_t	pid;
 	char	*path;
@@ -64,16 +64,11 @@ void	run_cmds(char **cmds, char ***env, char *ps)
 	pid = fork();
 	if (pid == 0)
 	{
-		ft_printf("in son\n");
 		signal(SIGINT, SIG_DFL);
 		if (can_access(cmds, 0) == 1)
-		{
-			ft_printf("in son3\n");
 			execve(cmds[0], cmds, *env);
-		}
 		else if (is_pathed(&path, cmds[0], *env) == -1)
 		{
-			ft_printf("in son2\n");
 			execve(path, cmds, *env);
 			ft_strdel(&path);
 		}
@@ -97,7 +92,14 @@ static char	**parse(char **cmds, char *line)
 	else
 	{
 		ft_supress_quote(&line);
-		return (ft_strsplit_whitespace(line));
+		cmds = ft_strsplit_whitespace(line);
+		if (!cmds[0])
+		{
+			cmds = (char**)ft_memalloc(sizeof(char*) * 2);
+			cmds[0] = (char*)ft_memalloc(2);
+			cmds[0][0] = '\n';
+		}
+		return (cmds);
 	}
 }
 
@@ -112,6 +114,7 @@ int			main(int ac, char **av, const char **env_ini)
 	(void)av;
 	env = ft_strdup_tab(env_ini);
 	get_prompt(&prompt, env);
+	signal(SIGINT, ft_sigign_newprompt);
 	while (ft_printf("%s", prompt) && get_next_line(0, &line) > 0)
 	{
 		cmds = parse(cmds, line);
