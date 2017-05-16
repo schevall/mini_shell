@@ -53,7 +53,7 @@ int			check_path_errors(char *path)
 		i++;
 	}
 	ft_strdel(&buf);
-	return (i = -1 ? 1 : 0);
+	return (i == -1 ? 1 : 0);
 }
 
 static int	find_slash(char *path)

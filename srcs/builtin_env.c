@@ -46,7 +46,7 @@ char	**ft_get_env(char *name, char **env)
 			return (env);
 		env++;
 	}
-	return (env);
+	return (NULL);
 }
 
 void	set_env_tmp(char *cmds, char ***env)
