@@ -37,7 +37,7 @@ int			check_path_errors(char *path)
 	if (ft_strlen(path) >= PATH_MAX)
 		return (ms_errors(PATH_TOO_LONG, NULL, "minishell"));
 	buf = ft_memalloc(PATH_MAX);
-	while (path[i] && i < ft_strlen(path))
+	while (path[i] && i < ft_strlen(path) && i > -1)
 	{
 		j = 0;
 		while (path[i] && path[i] != '/')
@@ -49,11 +49,11 @@ int			check_path_errors(char *path)
 		if (path[i] == '/')
 			buf[i] = path[i];
 		if (check_path_errors_aux(j, buf, path))
-			break ;
+			i = -2;
 		i++;
 	}
 	ft_strdel(&buf);
-	return (0);
+	return (i = -1 ? 1 : 0);
 }
 
 static int	find_slash(char *path)

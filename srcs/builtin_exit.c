@@ -16,5 +16,6 @@ void	cmd_exit(char **cmds, char ***env)
 {
 	ft_strdel_tab(cmds);
 	ft_strdel_tab(*env);
+	ft_putendl("exit");
 	exit(EXIT_SUCCESS);
 }
