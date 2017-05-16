@@ -6,29 +6,47 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/10 12:09:34 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/16 18:54:28 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/20 18:21:49 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/mini_shell.h"
 
-void	get_prompt(char **prompt, char **env)
+static void	make_prompt(char **new_prompt, char **env)
+{
+	char *target;
+
+	if (!(target = *ft_get_env("PWD", env)))
+	{
+		if (!(*new_prompt = ft_strdup("")))
+			ms_errors(MALLOC, NULL, "minishell");
+	}
+	else
+	{
+		if (!(*new_prompt = ft_strdup(*ft_get_env("PWD", env) + 4)))
+			ms_errors(MALLOC, NULL, "minishell");
+	}
+}
+
+void		get_prompt(char **prompt, char **env)
 {
 	int		len;
 	int		start;
 	char	*new_prompt;
+	char	*target;
 
 	if (*prompt)
 		ft_strdel(prompt);
-	if (!(new_prompt = ft_strdup(*ft_get_env("PWD", env) + 4)))
-		new_prompt = ft_strdup("");
+	make_prompt(&new_prompt, env);
 	len = ft_strlen(new_prompt);
 	start = len;
 	while (start && new_prompt[start] != '/')
 		start--;
 	if (!strchr(new_prompt, '/') || !ft_strcmp(new_prompt, "/"))
 		start = -1;
-	*prompt = ft_strsub(new_prompt, start + 1, len);
+	if (!(*prompt = ft_strsub(new_prompt, start + 1, len)))
+		ms_errors(MALLOC, NULL, "minishell");
 	ft_strdel(&new_prompt);
-	*prompt = ft_strjoin_free(*prompt, 1, " $> ", 0);
+	if (!(*prompt = ft_strjoin_free(*prompt, 1, " $> ", 0)))
+		ms_errors(MALLOC, NULL, "minishell");
 }

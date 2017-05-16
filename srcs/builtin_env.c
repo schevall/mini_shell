@@ -6,7 +6,7 @@
 /*   By: schevall <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 16:30:53 by schevall          #+#    #+#             */
-/*   Updated: 2017/03/20 11:07:36 by schevall         ###   ########.fr       */
+/*   Updated: 2017/03/20 18:23:39 by schevall         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	**ft_get_env(char *name, char **env)
 			return (env);
 		env++;
 	}
-	return (NULL);
+	return (env);
 }
 
 void	set_env_tmp(char *cmds, char ***env)
