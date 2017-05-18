@@ -36,7 +36,7 @@ int		cmd_cd_cases(char *type, char ***env, char *cur_path);
 int		change_path(char *path, char ***env);
 void	get_backward(char **path);
 int		cd_error(char **cmds, char ***env);
-void	cmd_exit(char **cmds, char ***env);
+void	cmd_exit(char **cmds, char **env, char *exit, char *prompt);
 void	cmd_pwd(char ***env);
 void	format_cmd_for_setenv(char *name, char *value, char ***env);
 int		ft_is_env(char *name, char ***env);

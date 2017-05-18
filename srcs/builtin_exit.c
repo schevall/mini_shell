@@ -12,10 +12,12 @@
 
 #include "../includes/mini_shell.h"
 
-void	cmd_exit(char **cmds, char ***env)
+void	cmd_exit(char **cmds, char **env, char *line, char *prompt)
 {
+	ft_strdel(&prompt);
+	ft_strdel(&line);
 	ft_strdel_tab(cmds);
-	ft_strdel_tab(*env);
+	ft_strdel_tab(env);
 	ft_putendl("exit");
 	exit(EXIT_SUCCESS);
 }

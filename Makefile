@@ -6,7 +6,7 @@
 #    By: schevall <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/06 16:45:19 by schevall          #+#    #+#              #
-#    Updated: 2017/03/20 15:48:59 by schevall         ###   ########.fr        #
+#    Updated: 2017/05/18 11:06:00 by schevall         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ all: $(NAME)
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
 	@mkdir -p obj
-	@gcc -c $(FLAG) $(INC) -o $@ $<
+	@gcc -c -g $(FLAG) $(INC) -o $@ $<
 
 clean:
 	@make clean -C ./libft/

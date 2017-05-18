@@ -12,7 +12,7 @@
 
 #include "../includes/mini_shell.h"
 
-static void	funct_tab(char **cmds, char ***env)
+static void	funct_tab(char **cmds, char ***env, char *line, char *prompt)
 {
 	if (!ft_strcmp(cmds[0], "\n"))
 		return ;
@@ -27,7 +27,7 @@ static void	funct_tab(char **cmds, char ***env)
 	else if (!ft_strcmp(cmds[0], "cd"))
 		cmd_cd(cmds, &(*env));
 	else if (!ft_strcmp(cmds[0], "exit"))
-		cmd_exit(cmds, env);
+		cmd_exit(cmds, *env, line, prompt);
 	else if (!ft_strcmp(cmds[0], "pwd"))
 		cmd_pwd(env);
 	else
@@ -93,7 +93,7 @@ static char	**parse(char **cmds, char *line)
 	{
 		ft_supress_quote(&line);
 		cmds = ft_strsplit_whitespace(line);
-		if (!cmds[0])
+		if (!cmds || !cmds[0])
 		{
 			cmds = (char**)ft_memalloc(sizeof(char*) * 2);
 			cmds[0] = (char*)ft_memalloc(2);
@@ -119,7 +119,7 @@ int			main(int ac, char **av, const char **env_ini)
 	{
 		cmds = parse(cmds, line);
 		if (is_builtin(cmds[0]))
-			funct_tab(cmds, &env);
+			funct_tab(cmds, &env, line, prompt);
 		else if (!is_path(cmds[0]))
 			run_cmds(cmds, &env, "minishell");
 		ft_strdel(&line);

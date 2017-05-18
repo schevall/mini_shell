@@ -105,5 +105,7 @@ int			cmd_cd(char **cmds, char ***env)
 	get_new_path(cmds[1], &path, env);
 	if (!check_path_errors(path))
 		return (change_path(path, env));
+	if (path)
+		ft_strdel(&path);
 	return (1);
 }
