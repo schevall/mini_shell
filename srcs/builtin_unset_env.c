@@ -40,18 +40,21 @@ void		cmd_unset_env(char **cmds, char ***env)
 {
 	int		len;
 	int		i;
+	char	**current;
 
 	i = 0;
 	if (!cmds[1])
 		return ;
-	len = ft_strlen(cmds[1]);
 	while ((*env)[i])
 	{
-		if (!ft_strncmp(cmds[1], (*env)[i], len))
+		current = ft_strsplit((*env)[i], 61);
+		len = ft_strlen(current[0]);
+		if (!ft_strncmp(cmds[1], current[0], len))
 		{
 			erase_var(cmds[1], &(*env), len);
 			break ;
 		}
+		ft_strdel(current);
 		i++;
 	}
 }
